@@ -1,2 +1,2 @@
 # AviruchiWebsite
-Aviruchi Website Project
+Avijit's Website
