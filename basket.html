@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Basket | Aviruchi</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="index.html" class="brand">
+        <img src="image.jpeg" alt="Logo">
+        <span>Aviruchi</span>
+      </a>
+      <button class="menu-btn">☰</button>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="basket.html" class="active cart-link">
+          Basket <span class="cart-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Your Basket</h1>
+    <div style="display:grid; grid-template-columns: 2fr 1fr; gap:30px;" class="hero-layout">
+      <!-- Basket Items Container -->
+      <div id="basket-list" style="background:#fff; padding:20px; border-radius:16px; box-shadow:var(--shadow);">
+        <!-- Items injected by JS -->
+      </div>
+
+      <!-- Summary -->
+      <div style="background:#fff; padding:20px; border-radius:16px; box-shadow:var(--shadow); height:fit-content;">
+        <h3>Summary</h3>
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+          <span>Subtotal</span>
+          <span id="subtotal">£0.00</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+          <span>Delivery</span>
+          <span>£3.99</span>
+        </div>
+        <div style="border-top:1px solid #eee; padding-top:10px; display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem;">
+          <span>Total</span>
+          <span id="total">£0.00</span>
+        </div>
+        <a href="checkout.html" id="checkout-btn" class="btn-primary" style="width:100%; margin-top:20px; text-align:center;">Secure Checkout</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>&copy; 2025 Aviruchi UK</footer>
+  <script src="script.js"></script>
+</body>
+</html>
