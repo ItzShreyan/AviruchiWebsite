@@ -1,2 +1,2 @@
 # AviruchiWebsite
-Aviruchi Website
+Aviruchi Website Project
