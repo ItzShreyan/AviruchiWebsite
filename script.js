@@ -1,203 +1,423 @@
-/* --- Global Cart State --- */
-const CART_KEY = 'aviruchi_cart_v2';
+// Shared script for all pages
 
-// 1. Load Cart on Page Load
-document.addEventListener('DOMContentLoaded', () => {
-  updateCartCount();
-  setupMobileMenu();
-  setupSearch();
-  highlightActivePage();
-  
-  // Page specific renderers
-  if (document.getElementById('basket-list')) renderBasket();
-  if (document.getElementById('checkout-summary')) renderCheckout();
-  if (document.getElementById('products-grid')) renderProducts();
-});
+const CART_KEY = "aviruchi_cart_v4";
+const CHECKOUT_GATE_KEY = "aviruchi_checkout_gate_v2";
+const DELIVERY_FEE = 3.99;
 
-// 2. Mobile Menu
-function setupMobileMenu() {
-  const btn = document.querySelector('.menu-btn');
-  const nav = document.querySelector('.nav-links');
-  if (btn && nav) {
-    btn.addEventListener('click', () => nav.classList.toggle('open'));
+// --- Product catalogue (replace/extend with your full list) ---
+const PRODUCTS = [
+  {
+    id: "snacks-murukku",
+    name: "Crispy Murukku",
+    category: "Snacks",
+    baseSizes: [
+      { label: "200g", grams: 200, price: 3.99 },
+      { label: "400g", grams: 400, price: 6.99 }
+    ],
+    img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=800&auto=format&fit=crop",
+    tags: "murukku crunchy savoury snack"
+  },
+  {
+    id: "sweets-kaju",
+    name: "Kaju Katli",
+    category: "Sweets",
+    baseSizes: [
+      { label: "250g", grams: 250, price: 7.99 },
+      { label: "500g", grams: 500, price: 14.99 },
+      { label: "1kg", grams: 1000, price: 27.99 }
+    ],
+    img: "https://images.unsplash.com/photo-1608031833506-a3f60bd7a0c5?q=80&w=800&auto=format&fit=crop",
+    tags: "kaju katli cashew sweet barfi"
+  },
+  {
+    id: "sweets-gulab",
+    name: "Gulab Jamun",
+    category: "Sweets",
+    baseSizes: [
+      { label: "6 pcs", grams: 250, price: 4.99 },
+      { label: "12 pcs", grams: 500, price: 8.99 }
+    ],
+    img: "https://images.unsplash.com/photo-1626204574812-fd2f6d5b3e2c?q=80&w=800&auto=format&fit=crop",
+    tags: "gulab jamun syrup dessert"
+  },
+  {
+    id: "sweets-rasgulla",
+    name: "Rasgulla",
+    category: "Sweets",
+    baseSizes: [
+      { label: "10 pcs", grams: 400, price: 7.49 }
+    ],
+    img: "https://images.unsplash.com/photo-1668236548746-8e59b9a5b1d7?q=80&w=800&auto=format&fit=crop",
+    tags: "rasgulla sponge cheese sweet"
+  },
+  {
+    id: "podi-idli",
+    name: "Idli Podi",
+    category: "Podis / Spice Powders",
+    baseSizes: [
+      { label: "200g", grams: 200, price: 3.49 },
+      { label: "500g", grams: 500, price: 7.99 }
+    ],
+    img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800&auto=format&fit=crop",
+    tags: "idli podi spice powder"
+  },
+  {
+    id: "pickle-mango",
+    name: "Spicy Mango Pickle",
+    category: "Pickles",
+    baseSizes: [
+      { label: "250g", grams: 250, price: 3.99 },
+      { label: "500g", grams: 500, price: 6.99 }
+    ],
+    img: "https://images.unsplash.com/photo-1592997572835-2c087c87ac9d?q=80&w=800&auto=format&fit=crop",
+    tags: "mango pickle achar"
+  },
+  {
+    id: "papadums-plain",
+    name: "Plain Papadums",
+    category: "Papadums",
+    baseSizes: [
+      { label: "200g", grams: 200, price: 2.99 }
+    ],
+    img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?q=80&w=800&auto=format&fit=crop",
+    tags: "papad pappad papadum"
+  },
+  {
+    id: "mix-dosa",
+    name: "Instant Dosa Mix",
+    category: "Mixes",
+    baseSizes: [
+      { label: "500g", grams: 500, price: 4.99 },
+      { label: "1kg", grams: 1000, price: 8.99 }
+    ],
+    img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=800&auto=format&fit=crop",
+    tags: "dosa mix batter"
+  },
+  {
+    id: "other-namkeen",
+    name: "Special Namkeen Mix",
+    category: "Other",
+    baseSizes: [
+      { label: "400g", grams: 400, price: 5.99 }
+    ],
+    img: "https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?q=80&w=800&auto=format&fit=crop",
+    tags: "namkeen mixture snack"
   }
+];
+
+// categories from spec [file:73]
+const CATEGORIES = [
+  "All",
+  "Snacks",
+  "Sweets",
+  "Podis / Spice Powders",
+  "Pickles",
+  "Papadums",
+  "Mixes",
+  "Other"
+];
+
+const money = n => Number(n).toFixed(2);
+const qs = (s, r=document) => r.querySelector(s);
+const qsa = (s, r=document) => [...r.querySelectorAll(s)];
+
+/* Cart helpers */
+function getCart(){
+  try{return JSON.parse(localStorage.getItem(CART_KEY)) || [];}catch{return [];}
+}
+function setCart(items){
+  localStorage.setItem(CART_KEY, JSON.stringify(items));
+  updateCartCount();
+}
+function updateCartCount(){
+  const totalQty = getCart().reduce((s,i)=>s+i.qty,0);
+  qsa(".cart-count").forEach(el=> el.textContent = totalQty);
+}
+function addLine(itemId, sizeIndex, qty){
+  const items = getCart();
+  const existing = items.find(i=> i.id===itemId && i.sizeIndex===sizeIndex);
+  if(existing) existing.qty += qty;
+  else items.push({id:itemId,sizeIndex,qty});
+  setCart(items);
+}
+function removeLine(index){
+  const items = getCart();
+  items.splice(index,1);
+  setCart(items);
+}
+function changeLineQty(index, delta){
+  const items = getCart();
+  if(!items[index]) return;
+  items[index].qty += delta;
+  if(items[index].qty <=0) items.splice(index,1);
+  setCart(items);
+}
+function cartLinesDetailed(){
+  const lines = getCart();
+  return lines.map(line=>{
+    const p = PRODUCTS.find(x=>x.id===line.id);
+    const size = p?.baseSizes[line.sizeIndex];
+    return {
+      ...line,
+      product: p,
+      size,
+      linePrice: size ? size.price * line.qty : 0
+    };
+  });
 }
 
-// 3. Smart Search (Redirects to Products page if not already there)
-function setupSearch() {
-  const form = document.getElementById('search-form');
-  if (!form) return;
+/* Rendering products with Amazon-style category + filters */
+function buildProductCard(p){
+  const size0 = p.baseSizes[0];
+  return `
+  <article class="card" data-id="${p.id}" data-category="${p.category}" data-tags="${p.tags}">
+    <img class="product-img" src="${p.img}" alt="${p.name}">
+    <div class="card-body">
+      <div class="product-title">${p.name}</div>
+      <div class="product-size">${p.category}</div>
+      <div class="product-pack">
+        <select data-pack>
+          ${p.baseSizes.map((s,i)=>`<option value="${i}">${s.label} — £${money(s.price)}</option>`).join("")}
+        </select>
+      </div>
+      <div class="qty-row">
+        <div class="qty-control">
+          <button type="button" data-qty-dec>−</button>
+          <input type="text" value="1" readonly>
+          <button type="button" data-qty-inc>+</button>
+        </div>
+        <button type="button" class="add-btn" data-add>Add to basket</button>
+      </div>
+    </div>
+  </article>`;
+}
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const query = form.querySelector('input').value.trim();
-    if (query) {
-      // Go to products page with search term
-      window.location.href = `products.html?search=${encodeURIComponent(query)}`;
+function renderProductsPage(){
+  const grid = qs("#productsGrid");
+  const sidebar = qs("#categoryList");
+  if(!grid || !sidebar) return;
+
+  // render categories
+  sidebar.innerHTML = CATEGORIES.map(cat=>`
+    <li><button type="button" data-cat="${cat}">${cat}</button></li>
+  `).join("");
+
+  // handle category + search
+  const searchInput = qs("#productsSearch");
+  let currentCategory = "All";
+
+  function applyFilters(){
+    const term = (searchInput?.value || "").trim().toLowerCase();
+    grid.innerHTML = PRODUCTS
+      .filter(p => currentCategory==="All" || p.category===currentCategory)
+      .filter(p => !term || (p.name + " " + p.tags).toLowerCase().includes(term))
+      .map(buildProductCard).join("") || `<div style="padding:12px">No products found.</div>`;
+  }
+
+  applyFilters();
+  updateCartCount();
+
+  sidebar.addEventListener("click", e=>{
+    const btn = e.target.closest("button[data-cat]");
+    if(!btn) return;
+    currentCategory = btn.dataset.cat;
+    qsa("button[data-cat]", sidebar).forEach(b=>b.classList.toggle("active", b===btn));
+    applyFilters();
+  });
+  const params = new URLSearchParams(location.search);
+  const q = params.get("search");
+  if(q && searchInput){ searchInput.value = q; }
+
+  if(searchInput){
+    searchInput.addEventListener("input", applyFilters);
+    qs("#productsFilterForm")?.addEventListener("submit", e=>{
+      e.preventDefault(); applyFilters();
+    });
+  }
+
+  // delegate add / qty buttons
+  grid.addEventListener("click", e=>{
+    const card = e.target.closest(".card");
+    if(!card) return;
+    const qtyInput = card.querySelector(".qty-control input");
+    if(e.target.matches("[data-qty-inc]")){
+      qtyInput.value = String(Number(qtyInput.value)+1);
+    }else if(e.target.matches("[data-qty-dec]")){
+      qtyInput.value = String(Math.max(1, Number(qtyInput.value)-1));
+    }else if(e.target.matches("[data-add]")){
+      const productId = card.dataset.id;
+      const sizeIndex = Number(card.querySelector("[data-pack]").value);
+      const qty = Number(qtyInput.value) || 1;
+      addLine(productId,sizeIndex,qty);
+      e.target.classList.add("added");
+      e.target.textContent = "Added ✓";
+      setTimeout(()=>{ e.target.classList.remove("added"); e.target.textContent="Add to basket"; }, 900);
     }
   });
 }
 
-// 4. Highlight Active Nav Link
-function highlightActivePage() {
-  const path = window.location.pathname;
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    if (link.href.includes(path) && path !== '/') link.classList.add('active');
+/* Basket page */
+function renderBasketPage(){
+  const listEl = qs("#basketList");
+  if(!listEl) return;
+
+  const emptyEl = qs("#basketEmpty");
+  const sumItems = qs("#sumItems");
+  const sumSub = qs("#sumSubtotal");
+  const sumDel = qs("#sumDelivery");
+  const sumTotal = qs("#sumTotal");
+  const goCheckout = qs("#goCheckout");
+
+  const lines = cartLinesDetailed();
+  if(!lines.length){
+    emptyEl.style.display="block";
+    listEl.innerHTML = "";
+    if(goCheckout) goCheckout.disabled = true;
+  } else {
+    emptyEl.style.display="none";
+    if(goCheckout) goCheckout.disabled = false;
+
+    listEl.innerHTML = lines.map((line,idx)=>`
+      <div class="basket-item">
+        <img class="basket-thumb" src="${line.product.img}" alt="${line.product.name}">
+        <div>
+          <strong>${line.product.name}</strong>
+          <div style="font-size:13px;color:var(--muted)">${line.size.label}</div>
+          <div style="margin-top:6px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <div class="qty-control">
+              <button type="button" data-bdec="${idx}">−</button>
+              <input value="${line.qty}" readonly>
+              <button type="button" data-binc="${idx}">+</button>
+            </div>
+            <button class="btn-danger" type="button" data-bremove="${idx}">Remove</button>
+          </div>
+        </div>
+        <div style="font-weight:800">£${money(line.linePrice)}</div>
+      </div>
+    `).join("");
+
+    listEl.onclick = (e)=>{
+      const dec = e.target.closest("[data-bdec]");
+      const inc = e.target.closest("[data-binc]");
+      const rem = e.target.closest("[data-bremove]");
+      if(dec){ changeLineQty(Number(dec.dataset.bdec),-1); renderBasketPage(); }
+      if(inc){ changeLineQty(Number(inc.dataset.binc),+1); renderBasketPage(); }
+      if(rem){ removeLine(Number(rem.dataset.bremove)); renderBasketPage(); }
+    };
+  }
+
+  const totals = cartTotals();
+  if(sumItems) sumItems.textContent = totals.count;
+  if(sumSub) sumSub.textContent = money(totals.subtotal);
+  if(sumDel) sumDel.textContent = money(totals.delivery);
+  if(sumTotal) sumTotal.textContent = money(totals.total);
+
+  if(goCheckout){
+    goCheckout.onclick = ()=>{
+      if(!cartLinesDetailed().length) return;
+      sessionStorage.setItem(CHECKOUT_GATE_KEY,"1");
+      location.href = "checkout.html";
+    };
+  }
+}
+
+/* Checkout page */
+function renderCheckoutPage(){
+  const form = qs("#checkoutForm");
+  const summary = qs("#checkoutSummary");
+  if(!form || !summary) return;
+
+  if(sessionStorage.getItem(CHECKOUT_GATE_KEY)!=="1"){
+    location.href = "basket.html";
+    return;
+  }
+  const lines = cartLinesDetailed();
+  if(!lines.length){
+    location.href = "basket.html";
+    return;
+  }
+
+  const totals = cartTotals();
+  summary.innerHTML = lines.map(l=>`
+    <div style="display:flex;justify-content:space-between;margin:4px 0;font-size:14px">
+      <span>${l.qty}× ${l.product.name} (${l.size.label})</span>
+      <strong>£${money(l.linePrice)}</strong>
+    </div>
+  `).join("") + `
+    <div style="border-top:1px dashed var(--line);margin-top:8px;padding-top:8px;font-size:14px">
+      <div style="display:flex;justify-content:space-between"><span>Subtotal</span><strong>£${money(totals.subtotal)}</strong></div>
+      <div style="display:flex;justify-content:space-between"><span>Delivery</span><strong>£${money(totals.delivery)}</strong></div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px"><span>Total</span><strong>£${money(totals.total)}</strong></div>
+    </div>
+  `;
+
+  form.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    localStorage.removeItem(CART_KEY);
+    sessionStorage.removeItem(CHECKOUT_GATE_KEY);
+    alert("Order submitted. Thank you for choosing Aviruchi!");
+    location.href = "index.html";
   });
 }
 
-/* --- Cart Logic --- */
-function getCart() {
-  return JSON.parse(localStorage.getItem(CART_KEY)) || {};
-}
-
-function saveCart(cart) {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  updateCartCount();
-}
-
-function addToCart(btn) {
-  const item = {
-    id: btn.dataset.id,
-    name: btn.dataset.name,
-    price: parseFloat(btn.dataset.price),
-    img: btn.dataset.img,
-    qty: 1
-  };
-  
-  const cart = getCart();
-  if (cart[item.id]) {
-    cart[item.id].qty++;
-  } else {
-    cart[item.id] = item;
+/* global header behaviours */
+function setupNav(){
+  const menuBtn = qs(".menu-btn");
+  const nav = qs(".nav-links");
+  if(menuBtn && nav){
+    menuBtn.addEventListener("click", ()=> nav.classList.toggle("open"));
   }
-  
-  saveCart(cart);
-  
-  // Feedback
-  const originalText = btn.textContent;
-  btn.textContent = "Added ✓";
-  btn.style.background = "#2f7d31";
-  btn.style.color = "#fff";
-  setTimeout(() => {
-    btn.textContent = originalText;
-    btn.style.background = "";
-    btn.style.color = "";
-  }, 1500);
+  const file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  qsa(".nav-links a").forEach(a=>{
+    if((a.getAttribute("href")||"").toLowerCase()===file){
+      a.classList.add("active");
+    }
+  });
 }
 
-function updateCartCount() {
-  const cart = getCart();
-  const count = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
-  document.querySelectorAll('.cart-count').forEach(el => el.textContent = count);
+/* Home search */
+function setupHomeSearch(){
+  const form = qs("#homeSearchForm");
+  const input = qs("#homeSearchInput");
+  if(!form || !input) return;
+  form.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    const q = input.value.trim();
+    if(q) location.href = `products.html?search=${encodeURIComponent(q)}`;
+    else location.href = "products.html";
+  });
 }
 
-/* --- Products Page Logic --- */
-function renderProducts() {
-  const params = new URLSearchParams(window.location.search);
-  const search = params.get('search')?.toLowerCase();
-  
-  if (search) {
-    const title = document.getElementById('page-title');
-    const input = document.getElementById('page-search');
-    if(title) title.textContent = `Results for "${search}"`;
-    if(input) input.value = search;
-    
-    // Filter cards
-    document.querySelectorAll('.card').forEach(card => {
-      const text = (card.dataset.name + ' ' + card.dataset.tags).toLowerCase();
-      card.style.display = text.includes(search) ? 'flex' : 'none';
+/* Init */
+document.addEventListener("DOMContentLoaded",()=>{
+  setupNav();
+  updateCartCount();
+  setupHomeSearch();
+  if(qs("#productsGrid")) renderProductsPage();
+  if(qs("#basketList")) renderBasketPage();
+  if(qs("#checkoutForm")) renderCheckoutPage();
+
+  // Home favourites (first 3 items)
+  const favGrid = qs("#favGrid");
+  if(favGrid){
+    favGrid.innerHTML = PRODUCTS.slice(0,3).map(buildProductCard).join("");
+    favGrid.addEventListener("click", (e)=>{
+      const card = e.target.closest(".card");
+      if(!card) return;
+      const qtyInput = card.querySelector(".qty-control input");
+      if(e.target.matches("[data-qty-inc]")){
+        qtyInput.value = String(Number(qtyInput.value)+1);
+      }else if(e.target.matches("[data-qty-dec]")){
+        qtyInput.value = String(Math.max(1,Number(qtyInput.value)-1));
+      }else if(e.target.matches("[data-add]")){
+        const id = card.dataset.id;
+        const sizeIndex = Number(card.querySelector("[data-pack]").value);
+        const qty = Number(qtyInput.value)||1;
+        addLine(id,sizeIndex,qty);
+        e.target.classList.add("added");
+        e.target.textContent="Added ✓";
+        setTimeout(()=>{e.target.classList.remove("added");e.target.textContent="Add to basket";},900);
+      }
     });
   }
-}
-
-/* --- Basket Page Logic --- */
-function renderBasket() {
-  const container = document.getElementById('basket-list');
-  const cart = getCart();
-  const items = Object.values(cart);
-  
-  if (items.length === 0) {
-    container.innerHTML = '<div style="text-align:center; padding:40px; color:#888;">Your basket is empty.</div>';
-    document.getElementById('checkout-btn').disabled = true;
-    updateTotals(0);
-    return;
-  }
-
-  container.innerHTML = items.map(item => `
-    <div style="display:grid; grid-template-columns: 60px 1fr auto; gap:15px; align-items:center; border-bottom:1px dashed #ccc; padding:15px 0;">
-      <img src="${item.img}" style="width:60px; height:60px; border-radius:8px; object-fit:cover;">
-      <div>
-        <div style="font-weight:700;">${item.name}</div>
-        <div style="font-size:0.9rem; color:#666;">£${item.price.toFixed(2)}</div>
-        <button onclick="removeFromCart('${item.id}')" style="background:none; border:none; color:#b71c1c; font-size:0.8rem; padding:0; cursor:pointer;">Remove</button>
-      </div>
-      <div style="display:flex; align-items:center; gap:8px;">
-        <button onclick="changeQty('${item.id}', -1)" style="width:25px; height:25px; border-radius:50%; border:1px solid #ccc; background:#fff;">-</button>
-        <span style="font-weight:600; width:20px; text-align:center;">${item.qty}</span>
-        <button onclick="changeQty('${item.id}', 1)" style="width:25px; height:25px; border-radius:50%; border:1px solid #ccc; background:#fff;">+</button>
-      </div>
-    </div>
-  `).join('');
-
-  const subtotal = items.reduce((sum, i) => sum + (i.price * i.qty), 0);
-  updateTotals(subtotal);
-  document.getElementById('checkout-btn').disabled = false;
-}
-
-function changeQty(id, delta) {
-  const cart = getCart();
-  if (cart[id]) {
-    cart[id].qty += delta;
-    if (cart[id].qty <= 0) delete cart[id];
-    saveCart(cart);
-    renderBasket();
-  }
-}
-
-function removeFromCart(id) {
-  const cart = getCart();
-  delete cart[id];
-  saveCart(cart);
-  renderBasket();
-}
-
-function updateTotals(subtotal) {
-  const delivery = subtotal > 0 ? 3.99 : 0;
-  document.getElementById('subtotal').textContent = `£${subtotal.toFixed(2)}`;
-  document.getElementById('total').textContent = `£${(subtotal + delivery).toFixed(2)}`;
-}
-
-/* --- Checkout Logic --- */
-function renderCheckout() {
-  const cart = getCart();
-  const items = Object.values(cart);
-  
-  if (items.length === 0) {
-    alert("Your basket is empty!");
-    window.location.href = 'basket.html';
-    return;
-  }
-
-  const list = document.getElementById('checkout-summary');
-  const total = items.reduce((sum, i) => sum + (i.price * i.qty), 0) + 3.99;
-  
-  list.innerHTML = items.map(i => `
-    <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.9rem;">
-      <span>${i.qty}x ${i.name}</span>
-      <span>£${(i.price * i.qty).toFixed(2)}</span>
-    </div>
-  `).join('') + `
-    <div style="border-top:1px solid #ddd; margin-top:10px; padding-top:10px; display:flex; justify-content:space-between; font-weight:700;">
-      <span>Total to pay</span>
-      <span>£${total.toFixed(2)}</span>
-    </div>
-  `;
-}
-
-function processOrder(e) {
-  e.preventDefault();
-  alert("Order placed successfully! Welcome to the Aviruchi family.");
-  localStorage.removeItem(CART_KEY);
-  window.location.href = 'index.html';
-}
+});

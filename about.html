@@ -4,41 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About | Aviruchi</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./script.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="nav-wrap">
-      <a href="index.html" class="brand">
-        <img src="image.jpeg" alt="Logo">
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="./index.html">
+      <img src="./image.jpeg" alt="Aviruchi logo">
+      <div>
         <span>Aviruchi</span>
-      </a>
-      <button class="menu-btn">☰</button>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html" class="active">About</a>
-        <a href="basket.html" class="cart-link">
-          Basket <span class="cart-count">0</span>
-        </a>
-      </nav>
-    </div>
-  </header>
+        <div class="tagline">Authentic food, straight from home!!!</div>
+      </div>
+    </a>
 
-  <main style="max-width: 800px; background: rgba(255,255,255,0.9); padding: 40px; border-radius: 20px;">
-    <h1>Our Story</h1>
-    <p>Aviruchi was founded with a simple mission: to bring the authentic, unadulterated taste of Indian sweets to the United Kingdom.</p>
-    <p>Unlike mass-produced confectioneries, our sweets are handmade in India by traditional artisans using recipes passed down through generations. We import them fresh, ensuring that when you open a box of Aviruchi sweets, it tastes exactly as it would in a sweet shop in Mumbai or Delhi.</p>
-    <h3>Why Choose Us?</h3>
-    <ul>
-      <li><strong>Authenticity:</strong> No shortcuts, just traditional methods.</li>
-      <li><strong>Freshness:</strong> Fast air-freight delivery ensures premium quality.</li>
-      <li><strong>Ingredients:</strong> We use pure ghee, saffron, and premium nuts.</li>
+    <button class="menu-btn" aria-label="Toggle menu">☰</button>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="./index.html">Home</a>
+      <a href="./products.html">Products</a>
+      <a href="./about.html">About</a>
+      <a href="./basket.html" class="cart-link">Basket <span class="cart-count">0</span></a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="card" style="padding:18px;max-width:860px;">
+    <h1>About Aviruchi</h1>
+    <p>Aviruchi was created to bring authentic home‑style Indian snacks, sweets and condiments directly to families in the UK.</p>
+    <p>Every product is prepared in India using traditional recipes and premium ingredients, then shipped freshly so the taste is as close to home as possible.</p>
+
+    <h2 style="font-size:24px;margin-top:16px;">What we offer</h2>
+    <ul style="margin:0;padding-left:18px;color:var(--muted);font-size:14px;">
+      <li>Snacks, sweets, podis, pickles, papadums, instant mixes and more.</li>
+      <li>Multiple pack sizes so you can choose the right grams and portion.</li>
+      <li>Transparent pricing and simple online ordering.</li>
     </ul>
-  </main>
+  </section>
+</main>
 
-  <footer>&copy; 2025 Aviruchi UK</footer>
-  <script src="script.js"></script>
+<footer>
+  © 2025 Aviruchi • Freshly made in India • Delivered across the UK
+</footer>
 </body>
 </html>

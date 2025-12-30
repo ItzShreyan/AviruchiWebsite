@@ -4,88 +4,60 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Products | Aviruchi</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./script.js" defer></script>
 </head>
 <body>
-
-  <header class="site-header">
-    <div class="nav-wrap">
-      <a href="index.html" class="brand">
-        <img src="image.jpeg" alt="Logo">
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="./index.html">
+      <img src="./image.jpeg" alt="Aviruchi logo">
+      <div>
         <span>Aviruchi</span>
-      </a>
-      <button class="menu-btn">☰</button>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="products.html" class="active">Products</a>
-        <a href="about.html">About</a>
-        <a href="basket.html" class="cart-link">
-          Basket <span class="cart-count">0</span>
-        </a>
-      </nav>
-    </div>
-  </header>
+        <div class="tagline">Authentic food, straight from home!!!</div>
+      </div>
+    </a>
 
-  <main>
-    <div style="margin-bottom: 30px;">
-      <h1 id="page-title">Our Sweets Collection</h1>
-      <!-- Local Search -->
-      <form id="search-form" style="display:flex; gap:10px; max-width:500px;">
-        <input type="text" id="page-search" placeholder="Filter sweets..." required>
-        <button type="submit" class="btn-primary">Filter</button>
-      </form>
-    </div>
+    <button class="menu-btn" aria-label="Toggle menu">☰</button>
 
-    <div class="grid" id="products-grid">
-      <!-- Item 1 -->
-      <article class="card" data-name="Kaju Katli" data-tags="cashew fudge silver">
-        <img src="https://images.unsplash.com/photo-1608031833506-a3f60bd7a0c5?q=80&w=600" alt="Kaju">
-        <div class="card-body">
-          <div class="card-top">
-            <h3>Kaju Katli</h3>
-            <div class="price">£18.99</div>
-          </div>
-          <p style="font-size:0.9rem; color:var(--muted)">Classic cashew fudge with silver leaf.</p>
-          <button class="buy-btn" onclick="addToCart(this)" 
-            data-id="kaju" data-name="Kaju Katli" data-price="18.99" 
-            data-img="https://images.unsplash.com/photo-1608031833506-a3f60bd7a0c5?q=80&w=600">Add to Basket</button>
-        </div>
-      </article>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="./index.html">Home</a>
+      <a href="./products.html">Products</a>
+      <a href="./about.html">About</a>
+      <a href="./basket.html" class="cart-link">Basket <span class="cart-count">0</span></a>
+    </nav>
+  </div>
+</header>
 
-      <!-- Item 2 -->
-      <article class="card" data-name="Gulab Jamun" data-tags="syrup sweet balls">
-        <img src="https://images.unsplash.com/photo-1626204574812-fd2f6d5b3e2c?q=80&w=600" alt="Gulab">
-        <div class="card-body">
-          <div class="card-top">
-            <h3>Gulab Jamun</h3>
-            <div class="price">£12.99</div>
-          </div>
-          <p style="font-size:0.9rem; color:var(--muted)">Soft dumplings soaked in rose syrup.</p>
-          <button class="buy-btn" onclick="addToCart(this)" 
-            data-id="gulab" data-name="Gulab Jamun" data-price="12.99" 
-            data-img="https://images.unsplash.com/photo-1626204574812-fd2f6d5b3e2c?q=80&w=600">Add to Basket</button>
-        </div>
-      </article>
+<main class="container">
+  <div class="section-header">
+    <h2>Shop products</h2>
+    <small>Filter by category or search like Amazon.</small>
+  </div>
 
-      <!-- Item 3 -->
-      <article class="card" data-name="Rasgulla" data-tags="white sponge cheese">
-        <img src="https://images.unsplash.com/photo-1668236548746-8e59b9a5b1d7?q=80&w=600" alt="Rasgulla">
-        <div class="card-body">
-          <div class="card-top">
-            <h3>Rasgulla</h3>
-            <div class="price">£10.99</div>
-          </div>
-          <p style="font-size:0.9rem; color:var(--muted)">Spongy cheese balls in light syrup.</p>
-          <button class="buy-btn" onclick="addToCart(this)" 
-            data-id="rasgulla" data-name="Rasgulla" data-price="10.99" 
-            data-img="https://images.unsplash.com/photo-1668236548746-8e59b9a5b1d7?q=80&w=600">Add to Basket</button>
-        </div>
-      </article>
-    </div>
-  </main>
+  <div class="products-layout">
+    <aside class="sidebar">
+      <h3>Categories</h3>
+      <ul id="categoryList" class="category-list"></ul>
+    </aside>
 
-  <footer>&copy; 2025 Aviruchi UK</footer>
-  <script src="script.js"></script>
+    <section>
+      <div class="card" style="padding:12px 12px 14px;margin-bottom:12px;">
+        <form id="productsFilterForm" class="searchbar" style="margin:0">
+          <input id="productsSearch" type="search" placeholder="Search in Aviruchi catalogue..." />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <div id="productsGrid" class="grid"></div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  © 2025 Aviruchi • Freshly made in India • Delivered across the UK
+</footer>
 </body>
 </html>
