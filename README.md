@@ -1,2 +1,2 @@
 # AviruchiWebsite
-Aviruchi Website Project
+Chatur's Website
