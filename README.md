@@ -1,2 +1,2 @@
 # AviruchiWebsite
-Shreyan's Website
+Aviruchi Website
