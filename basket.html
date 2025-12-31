@@ -1,61 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Basket | Aviruchi</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Basket • Aviruchi</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
-  <script src="./script.js" defer></script>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
+
 <body>
-<header class="site-header">
-  <div class="container navbar">
-    <a class="brand" href="./index.html">
-      <img src="./assets/logo-brown.png" alt="Aviruchi logo">
-      <div>
-        <div class="name">Aviruchi</div>
-        <div class="tag">Authentic food, straight from home!!!</div>
-      </div>
-    </a>
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html" aria-label="Aviruchi home">
+        <img src="assets/logo-brown.png" alt="Aviruchi logo">
+      </a>
 
-    <button class="menu-btn" aria-label="Menu">☰</button>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="basket.html">Basket <span class="cart-count">0</span></a>
+      </nav>
 
-    <nav class="nav-links" aria-label="Primary">
-      <a href="./index.html">Home</a>
-      <a href="./products.html">Products</a>
-      <a href="./about.html">About</a>
-      <a href="./basket.html" class="cart-link">Basket <span class="cart-count">0</span></a>
-    </nav>
-  </div>
-</header>
+      <form id="navSearchForm" class="nav-search" role="search">
+        <input id="navSearchInput" type="search" placeholder="Search products..." />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </header>
 
-<main class="container">
-  <div class="section-head">
-    <h2>Your basket</h2>
-    <div class="small">Review and checkout when ready.</div>
-  </div>
+  <main class="container">
+    <div class="row">
+      <section class="card" style="padding:18px">
+        <h2>Your basket</h2>
+        <div id="basketEmpty" style="display:none;color:#8a7e77">Your basket is empty.</div>
+        <div id="basketList"></div>
+      </section>
 
-  <div class="row">
-    <section class="card reveal" style="padding:16px;">
-      <div id="basketEmpty" class="small" style="display:none;">Your basket is empty.</div>
-      <div id="basketList"></div>
-    </section>
+      <aside class="card" style="padding:18px">
+        <h3>Summary</h3>
+        <div class="summary-row"><span>Items</span><span id="sumItems">0</span></div>
+        <div class="summary-row"><span>Subtotal</span><span>£<span id="sumSubtotal">0.00</span></span></div>
+        <div class="summary-row"><span>Delivery</span><span>£<span id="sumDelivery">0.00</span></span></div>
+        <div class="summary-row total"><span>Total</span><span>£<span id="sumTotal">0.00</span></span></div>
 
-    <aside class="card reveal" style="padding:16px; height:fit-content;">
-      <h3 style="margin:0 0 10px;">Summary</h3>
-      <div class="summary-row"><span>Items</span><span id="sumItems">0</span></div>
-      <div class="summary-row"><span>Subtotal</span><span>£<span id="sumSubtotal">0.00</span></span></div>
-      <div class="summary-row"><span>Delivery</span><span>£<span id="sumDelivery">0.00</span></span></div>
-      <div class="summary-row total"><span>Total</span><span>£<span id="sumTotal">0.00</span></span></div>
-      <button id="goCheckout" class="btn-primary">Order now</button>
-    </aside>
-  </div>
-</main>
+        <button id="goCheckout" class="btn-primary" type="button">Proceed to checkout</button>
+      </aside>
+    </div>
+  </main>
 
-<footer>
-  © 2025 Aviruchi • Freshly made in India • Delivered across the UK
-</footer>
+  <footer>© 2025 Aviruchi</footer>
 </body>
 </html>
