@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# AviruchiWebsite
-Chatur's Website
-=======
 # Aviruchi Website
 Aviruchi Website Project
 
@@ -148,4 +144,3 @@ Each item supports flags
 **New arrival**
 
 This structure allows **easy tuning of recommendations** and future expansion
->>>>>>> origin/main
