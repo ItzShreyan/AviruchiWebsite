@@ -1862,26 +1862,61 @@ function renderProducts() {
       `;
     })
     .join("");
-}
+  syncAllAddButtons();
+} 
 
 //////////////////////////////////////////////////////////////
 // BASKET LOGIC
 //////////////////////////////////////////////////////////////
 
 function saveBasket() {
-  localStorage.setItem("aviruchi_basket", JSON.stringify(state.basket));
+  localStorage.setItem("aviruchibasket", JSON.stringify(state.basket));
 }
 
 function loadBasket() {
-  const saved = localStorage.getItem("aviruchi_basket");
+  const saved = localStorage.getItem("aviruchibasket");
   if (saved) {
     state.basket = JSON.parse(saved);
   }
 }
 
+function getBasketKey(productId, selectedPack) {
+  return productId + (selectedPack ? `_${selectedPack.label}` : "");
+}
+
+function isInBasket(productId, selectedPack) {
+  const key = getBasketKey(productId, selectedPack);
+  return state.basket.some((item) => item.key === key);
+}
+
+function syncCardAddButton(card) {
+  if (!card) return;
+  const id = card.getAttribute("data-id");
+  const addBtn = card.querySelector(".add-btn");
+  if (!addBtn) return;
+
+  const select = card.querySelector(".pack-select");
+  let selectedPack = null;
+
+  if (select && select.options.length) {
+    const opt = select.options[select.selectedIndex];
+    selectedPack = { label: opt.value, price: parseFloat(opt.getAttribute("data-price")) };
+  }
+
+  const added = isInBasket(id, selectedPack);
+  addBtn.textContent = added ? "Added" : "Add";
+  addBtn.classList.toggle("added", added);
+}
+
+function syncAllAddButtons() {
+  const grid = document.getElementById("products-grid");
+  if (!grid) return;
+  grid.querySelectorAll(".product-card").forEach(syncCardAddButton);
+}
+
 function addToBasket(product, qty, selectedPack) {
-  const key = product.id + (selectedPack ? `_${selectedPack.label}` : "");
-  const existing = state.basket.find((item) => item.key === key);
+ const key = product.id + (selectedPack ? `_${selectedPack.label}` : "");
+ const existing = state.basket.find((item) => item.key === key);
 
   if (existing) {
     existing.qty += qty;
@@ -2040,14 +2075,18 @@ function attachProductEvents() {
       }
 
       addToBasket(product, qty, selectedPack);
+      syncCardAddButton(card);
 
       addBtn.textContent = "Added";
       addBtn.classList.add("added");
-      setTimeout(() => {
-        addBtn.textContent = "Add";
-        addBtn.classList.remove("added");
-      }, 1200);
     }
+  });
+  
+  grid.addEventListener("change", (e) => {
+    const sel = e.target.closest(".pack-select");
+    if (!sel) return;
+    const card = sel.closest(".product-card");
+    syncCardAddButton(card);
   });
 }
 

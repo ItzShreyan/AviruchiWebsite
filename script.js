@@ -264,12 +264,42 @@ function renderCheckoutPage() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    // Demo checkout: clear basket
-    localStorage.removeItem(BASKET_KEY);
-    sessionStorage.removeItem(CHECKOUT_GATE_KEY);
-    updateBasketBadges();
-    alert("Order placed! (Demo)");
-    location.href = "index.html";
+
+    const WA_NUMBER = "447344269839"; // no +, no spaces
+
+    const name = (qs("#name")?.value || "").trim();
+    const phone = (qs("#phone")?.value || "").trim();
+    const email = (qs("#email")?.value || "").trim();
+    const address = (qs("#address")?.value || "").trim();
+    const postcode = (qs("#postcode")?.value || "").trim();
+
+    const lines = basketLinesDetailed();
+    const t = basketTotals();
+
+    const orderSummary = lines
+      .map((l) => {
+        const packText = l.packLabel ? ` (${l.packLabel})` : "";
+        return `${l.qty} x ${l.name}${packText} - £${money(l.lineTotal)}`;
+      })
+      .join("\n");
+
+    const msg =
+`Hello! Another order from
+(${name})
+(${phone})
+(${email})
+Order:
+(${orderSummary})
+(£${money(t.total)})
+Address is (${address})
+(${postcode})`;
+
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+    // Open WhatsApp (new tab)
+    window.open(url, "_blank", "noopener,noreferrer");
+
+    // Optional: keep basket until they actually send in WhatsApp (so DO NOTHING else)
   });
 }
 function setupRevealAnimations() {
