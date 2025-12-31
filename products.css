@@ -830,3 +830,22 @@ p {
   border: none;
   cursor: pointer;
 }
+
+.global-header {
+  background: #ffc267;
+}
+
+.logo {
+  height: 60px;   /* adjust this number to your liking */
+  width: auto;    /* keeps the proportions clean */
+}
+.btn-primary {
+  transition: all 0.25s ease;
+  transform: translateY(0);
+}
+
+.btn-primary:hover {
+  background: var(--accent, #d35400); /* keeps your theme */
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}

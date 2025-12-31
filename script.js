@@ -476,3 +476,86 @@ function init(){
 
 if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", ()=> safe(init));
 else safe(init);
+function getRandomProducts(count = 3) {
+  const shuffled = [...allProducts].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
+
+function renderRecommended() {
+  const container = document.getElementById("recommendedProducts");
+  const picks = getRandomProducts();
+
+  container.innerHTML = picks.map(name => `
+    <div class="rec-item" style="display:flex; gap:10px; margin-bottom:12px;">
+      <div style="font-weight:600;">${name}</div>
+    </div>
+  `).join("");
+}
+
+renderRecommended();// --- PRODUCT LIST FROM GOOGLE DOC ---
+const allProducts = [
+  "Avakaya", "Chintakaya", "Amla Pickle", "Telangana spl Alla Avakay",
+  "Maagaya", "Mango Turumu Pickle", "Tomato Pickle", "Mango Pickle",
+  "Gongura", "Allam Pachadi", "Kottimeera", "Bittergourd Pickle",
+  "Pandu Mirchi", "Prawn Pickle", "Chicken Pickle", "Fish Pickle",
+  "Mango Pulihora Mix", "Pulihora Mix", "Gongura Pulihora Mix",
+  "Tomato Pulihora Mix", "Tomato Biryani Mix", "Gongura Biryani Mix",
+  "Millet Upma Mix", "Upma Mix", "Pongal Mix", "Poha Breakfast Mix",
+  "Dal Premix", "Sambar Rice Premix", "Rasam Rice Premix",
+  "Semiya Upma Mix", "Khichdi Mix", "Pulao Mix", "Peanut Chutney Mix",
+  "Coconut Chutney Mix", "Gongura Plain Paste", "Ginger Garlic Paste",
+  "Tamarind Paste", "Ulava Charu", "Gram Flour Sev", "Chakra Muruku",
+  "Sanna Muruku", "Jandikalu", "Pudina Chekkalu", "Ragi Chekkalu",
+  "Beetroot Chekkalu", "Jonna Chekkalu", "Segodilu", "Boondi",
+  "Peanut Pakodi", "Mixture", "Chegodi", "Ribbon Pakodi",
+  "Banana Spicy Chips", "Karapuri", "Ghati", "Millet Gavvalu",
+  "Ragi Chegodilu", "Ragi Mixture", "Ragi Murukulu", "Jowar Mixture",
+  "Jowar Murukulu", "Jowar Ribbon Pakodi", "Foxtail Sev",
+  "Kodo Jantikalu", "Little Millet Boondi", "Ariselu", "Sajja Boorelu",
+  "Pootharekulu (Sliced)", "Pootharekulu (Powdered)", "Annamayya Laddu",
+  "Bellam Gavvalu", "Nuvvula Sakinalu", "Nuvvula Sakinalu (Garlic)",
+  "Kakinada Khaja", "Madatha Khaja", "Chitti Madatha Khaja",
+  "Tati Tandra", "Mamidi Tandra", "Badusha", "Badusha (Ghee)",
+  "Boondi Laddu", "Besan Laddu", "Flax Seed Laddu", "Millet Laddu",
+  "Dry Fruit Laddu", "Dryfruit Chikki", "Dry Fruit Kalakhand",
+  "Pala Kova", "Kaju Katli", "Kaju Patti", "Sesame Chikki",
+  "Peanut Chikki", "Sunnundalu", "Mysorepak (Ghee)", "Milk Mysorepak",
+  "Nuvvula Karjakayalu", "Kova Karjakayalu", "Penilu", "Peechu Mithai",
+  "Sabudhana Plain", "Sabudhana Pachi Karam", "Sabudhana Red Karam",
+  "Minapa Vadiyalu", "Rice Vadiyalu", "Gummadi Vadiyalu",
+  "Curd Chilli", "Regi Vadiyalu", "Curry Chilli Chutney Powder",
+  "Green Chilli Powder", "Curry Leaf Powder", "Flax Seeds Powder",
+  "Idly Spice Mix Powder", "Nalla Karam", "Peanut Chutney Powder",
+  "Roasted Chana Dal Powder", "Toor Dal Spice Powder",
+  "Amla Spice Powder", "Garlic Chilli Powder", "Drumstick Leaf Powder",
+  "Til Chutney Powder", "Chutney Powder", "Horse Gram Powder",
+  "Coriander Leaf Powder", "Mint Leaf Powder",
+  "Bittergourd Spice Powder", "Chia & Til Powder",
+  "Mysore Bonda Mix", "Dosa Ready Mix", "Idly Mix",
+  "Makka Jonna Ghatka", "Pacha Jonna Ghatka", "White Jonna Flour",
+  "Pulihora Mix (Prasadam)", "Rava Kesari Mix", "Hot Pongal Mix",
+  "Sweet Pongal Mix", "Semiya Payasam Mix", "Panchadhara Kommulu",
+  "Bellam Mitai", "Chivda Mix", "Kaju Pakodi", "Dalmoti",
+  "365 Vattulu", "365 Vattulu (Ghee)", "Poovu Vattulu"
+];
+
+// --- RANDOM PICKER ---
+function getRandomProducts(count = 3) {
+  const shuffled = [...allProducts].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
+
+// --- RENDER RECOMMENDED ---
+function renderRecommended() {
+  const container = document.getElementById("recommendedProducts");
+  if (!container) return; // prevents errors
+
+  const picks = getRandomProducts();
+
+  container.innerHTML = picks
+    .map(name => `<div class="rec-item" style="margin-bottom:10px;">${name}</div>`)
+    .join("");
+}
+
+document.addEventListener("DOMContentLoaded", renderRecommended);c
+
