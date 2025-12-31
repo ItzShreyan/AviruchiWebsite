@@ -272,6 +272,47 @@ function renderCheckoutPage() {
     location.href = "index.html";
   });
 }
+function setupRevealAnimations() {
+  // Add reveal class automatically (so you don't have to edit every HTML file)
+  const candidates = [
+    ...document.querySelectorAll("main .card"),
+    ...document.querySelectorAll("main .section-head"),
+    ...document.querySelectorAll("main .picks-grid > article"),
+    ...document.querySelectorAll("main .row > section, main .row > aside"),
+  ];
+
+  const els = [...new Set(candidates)].filter(Boolean);
+  if (!els.length) return;
+
+  els.forEach((el) => el.classList.add("reveal"));
+
+  const show = (el) => el.classList.add("is-visible");
+
+  // Reveal the first items instantly on load (nice entrance)
+  requestAnimationFrame(() => {
+    els.slice(0, 2).forEach(show);
+  });
+
+  if (!("IntersectionObserver" in window)) {
+    els.forEach(show);
+    return;
+  }
+
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          show(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  els.forEach((el) => obs.observe(el));
+}
+
 
 /* -----------------------------
    INIT
@@ -279,6 +320,7 @@ function renderCheckoutPage() {
 function init() {
   setupNav();
   setupSearchRedirects();
+  setupRevealAnimations();
 
   updateBasketBadges();
   renderBasketPage();
@@ -289,4 +331,5 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => safe(init));
 } else {
   safe(init);
+  
 }
