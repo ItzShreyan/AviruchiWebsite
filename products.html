@@ -4,124 +4,55 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Products | Aviruchi</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./products.css">
-
-  <script src="./products.js" defer></script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const btn = document.querySelector(".menu-btn");
-      const links = document.querySelector(".nav-links");
-      if (btn && links) btn.addEventListener("click", () => links.classList.toggle("open"));
-    });
-  </script>
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./script.js" defer></script>
 </head>
 
 <body>
 <header class="site-header">
   <div class="container navbar">
     <a class="brand" href="./index.html">
-      <img src="./assets/logo-brown.png" alt="Aviruchi logo">
+      <img src="./image.jpeg" alt="Aviruchi logo">
       <div>
-        <div class="name">Aviruchi</div>
-        <div class="tag">Authentic food, straight from home!!!</div>
+        <span>Aviruchi</span>
+        <div class="tagline">Authentic food, straight from home!!!</div>
       </div>
     </a>
 
-    <button class="menu-btn" aria-label="Menu">☰</button>
+    <button class="menu-btn" aria-label="Toggle menu">☰</button>
 
     <nav class="nav-links" aria-label="Primary">
       <a href="./index.html">Home</a>
-      <a href="./products.html" class="active">Products</a>
+      <a href="./products.html">Products</a>
       <a href="./about.html">About</a>
-
-      <a href="./basket.html" class="cart-link">
-        Basket <span class="cart-count" id="basket-count">0</span>
-      </a>
+      <a href="./basket.html" class="cart-link">Basket <span class="cart-count">0</span></a>
     </nav>
   </div>
 </header>
 
-<main class="container products-page">
-  <section class="card reveal products-hero">
-    <div class="products-hero-left">
-      <h1 class="products-title">Products</h1>
-      <p class="products-subtitle">Authentic flavours straight from home.</p>
-
-      <div class="products-filters">
-        <div class="filter">
-          <label for="search-input" class="small">Search</label>
-          <input id="search-input" type="search" placeholder="Search (e.g., pickle, laddu, podi)..." />
-        </div>
-
-        <div class="filter">
-          <label for="sort-filter" class="small">Sort by</label>
-
-          <!-- IMPORTANT: values MUST match products.js expectations -->
-          <select id="sort-filter">
-            <option value="featured">Featured</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-            <option value="name-asc">Name: A to Z</option>
-            <option value="name-desc">Name: Z to A</option>
-          </select>
-        </div>
-
-        <div class="filter filter-actions">
-          <button class="chip" id="clear-filters-btn" type="button">Clear filters</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="products-hero-right">
-      <div class="small">Tip: Use categories to jump quickly.</div>
-    </div>
-  </section>
+<main class="container">
+  <div class="section-header">
+    <h2>Shop products</h2>
+    <small>Filter by category or search like Amazon.</small>
+  </div>
 
   <div class="products-layout">
-    <!-- LEFT: sticky categories -->
-    <aside class="card products-sidebar">
-      <h2 class="sidebar-title">Categories</h2>
-
-      <div class="sidebar-category-list">
-        <button class="sidebar-link" data-category="all" type="button">All</button>
-        <button class="sidebar-link" data-category="Pickles" type="button">Pickles</button>
-        <button class="sidebar-link" data-category="Snacks" type="button">Snacks</button>
-        <button class="sidebar-link" data-category="Sweets" type="button">Sweets</button>
-        <button class="sidebar-link" data-category="Podis / Spice Powders" type="button">Podis / Spice Powders</button>
-        <button class="sidebar-link" data-category="Mixes" type="button">Mixes</button>
-        <button class="sidebar-link" data-category="Ready Mixes" type="button">Ready Mixes</button>
-        <button class="sidebar-link" data-category="Papadums" type="button">Papadums</button>
-        <button class="sidebar-link" data-category="Ready Pastes" type="button">Ready Pastes</button>
-        <button class="sidebar-link" data-category="Misc" type="button">Misc</button>
-      </div>
-
-      <div class="sidebar-info-card">
-        <div class="small">Basket saves automatically on this page.</div>
-      </div>
+    <aside class="sidebar">
+      <h3>Categories</h3>
+      <ul id="categoryList" class="category-list"></ul>
     </aside>
 
-    <!-- RIGHT: products -->
-    <section class="products-content">
-      <div class="results-bar card">
-        <div class="results-left">
-          <div id="results-count">0 products</div>
-          <div id="results-context" class="small">Showing all categories</div>
-        </div>
+    <section>
+      <div class="card" style="padding:12px 12px 14px;margin-bottom:12px;">
+        <form id="productsFilterForm" class="searchbar" style="margin:0">
+          <input id="productsSearch" type="search" placeholder="Search in Aviruchi catalogue..." />
+          <button type="submit">Search</button>
+        </form>
       </div>
 
-      <section id="products-grid" class="products-grid"></section>
-
-      <section id="empty-state" class="card empty-state" hidden>
-        <h2 style="margin:0 0 8px;">No products found</h2>
-        <p class="small">Try adjusting your search or filters.</p>
-        <button class="btn-primary" id="empty-reset-btn" type="button">Reset filters</button>
-      </section>
+      <div id="productsGrid" class="grid"></div>
     </section>
   </div>
 </main>
