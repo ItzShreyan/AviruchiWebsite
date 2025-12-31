@@ -3,62 +3,133 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Products | Aviruchi</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css" />
-  <script src="./script.js" defer></script>
+  <title>Aviruchi | Products</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="products.css" />
 </head>
 
 <body>
-<header class="site-header">
-  <div class="container navbar">
-    <a class="brand" href="./index.html">
-      <img src="./image.jpeg" alt="Aviruchi logo">
-      <div>
-        <span>Aviruchi</span>
-        <div class="tagline">Authentic food, straight from home!!!</div>
+
+  <!-- HEADER -->
+  <header class="global-header">
+    <div class="global-header-inner">
+      <div class="gh-left">
+        <a href="index.html" class="gh-logo">
+          <img src="image.jpeg" alt="Aviruchi Logo">
+        </a>
+        <nav class="gh-nav">
+          <a href="index.html">Home</a>
+          <a href="products.html" class="active">Products</a>
+          <a href="about.html">About</a>
+          <a href="basket.html" class="basket-link">
+            Basket <span id="basket-count">0</span>
+          </a>
+        </nav>
       </div>
-    </a>
 
-    <button class="menu-btn" aria-label="Toggle menu">☰</button>
-
-    <nav class="nav-links" aria-label="Primary">
-      <a href="./index.html">Home</a>
-      <a href="./products.html">Products</a>
-      <a href="./about.html">About</a>
-      <a href="./basket.html" class="cart-link">Basket <span class="cart-count">0</span></a>
-    </nav>
-  </div>
-</header>
-
-<main class="container">
-  <div class="section-header">
-    <h2>Shop products</h2>
-    <small>Filter by category or search like Amazon.</small>
-  </div>
-
-  <div class="products-layout">
-    <aside class="sidebar">
-      <h3>Categories</h3>
-      <ul id="categoryList" class="category-list"></ul>
-    </aside>
-
-    <section>
-      <div class="card" style="padding:12px 12px 14px;margin-bottom:12px;">
-        <form id="productsFilterForm" class="searchbar" style="margin:0">
-          <input id="productsSearch" type="search" placeholder="Search in Aviruchi catalogue..." />
+      <div class="gh-center">
+        <form id="search-form" class="gh-search">
+          <input type="text" id="search-input" placeholder="Search Aviruchi products..." />
           <button type="submit">Search</button>
         </form>
       </div>
 
-      <div id="productsGrid" class="grid"></div>
-    </section>
-  </div>
-</main>
+      <div class="gh-right">
+        <a href="https://wa.me/447000000000" target="_blank" class="gh-whatsapp">
+          WhatsApp Us
+        </a>
+      </div>
+    </div>
+  </header>
 
-<footer>
-  © 2025 Aviruchi • Freshly made in India • Delivered across the UK
-</footer>
+  <!-- MAIN -->
+  <main class="products-main" id="products-top">
+
+    <!-- TITLE + SORT -->
+    <section class="products-header-bar">
+      <div class="products-header-inner">
+        <div class="ph-left">
+          <h1>Aviruchi Products</h1>
+          <p class="ph-subtitle">Authentic flavours straight from home.</p>
+        </div>
+
+        <div class="ph-right">
+          <div class="ph-filter-group">
+            <label for="sort-filter">Sort by</label>
+            <select id="sort-filter">
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="name-asc">Name: A to Z</option>
+              <option value="name-desc">Name: Z to A</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYOUT -->
+    <section class="products-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="products-sidebar">
+        <h2>Shop by category</h2>
+        <ul class="sidebar-category-list">
+          <li><button class="sidebar-link" data-category="all">All products</button></li>
+          <li><button class="sidebar-link" data-category="Snacks">Snacks</button></li>
+          <li><button class="sidebar-link" data-category="Sweets">Sweets</button></li>
+          <li><button class="sidebar-link" data-category="Podis / Spice Powders">Podis / Spice Powders</button></li>
+          <li><button class="sidebar-link" data-category="Pickles">Pickles</button></li>
+          <li><button class="sidebar-link" data-category="Papadums">Papadums</button></li>
+          <li><button class="sidebar-link" data-category="Mixes">Mixes</button></li>
+          <li><button class="sidebar-link" data-category="Other">Other</button></li>
+        </ul>
+      </aside>
+
+      <!-- PRODUCTS -->
+      <section class="products-content">
+
+        <!-- RESULTS -->
+        <div class="results-bar">
+          <div class="results-left">
+            <span id="results-count">0 products</span>
+            <span id="results-context">Showing all categories</span>
+          </div>
+          <div class="results-right">
+            <button id="clear-filters-btn" class="btn-link">Clear filters</button>
+          </div>
+        </div>
+
+        <!-- PRODUCT GRID -->
+        <div id="products-grid" class="products-grid"></div>
+
+        <!-- EMPTY STATE -->
+        <div id="empty-state" class="empty-state" hidden>
+          <h2>No products found</h2>
+          <p>Try adjusting your search or filters.</p>
+          <button id="empty-reset-btn" class="btn-primary">Reset filters</button>
+        </div>
+
+      </section>
+    </section>
+
+    <!-- Basket items container (hidden on this page) -->
+    <div id="basket-items" class="basket-items"></div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; 2025 Aviruchi UK · Authentic flavours straight from home</p>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="products.js"></script>
 </body>
 </html>
