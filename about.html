@@ -20,27 +20,26 @@
 </head>
 
 <body>
-<header class="site-header">
-  <div class="container navbar">
-    <a class="brand" href="./index.html">
-      <img src="./assets/logo-brown.png" alt="Aviruchi logo">
-      <div>
-        <div class="name">Aviruchi</div>
-        <div class="tag">Authentic food, straight from home!!!</div>
-      </div>
-    </a>
+ <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html" aria-label="Aviruchi home">
+        <img src="assets/logo-brown.png" alt="Aviruchi logo">
+      </a>
 
-    <button class="menu-btn" aria-label="Menu">☰</button>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="basket.html">Basket <span class="cart-count">0</span></a>
+      </nav>
 
-    <nav class="nav-links" aria-label="Primary">
-      <a href="./index.html">Home</a>
-      <a href="./products.html">Products</a>
-      <a href="./about.html" class="active">About</a>
-      <a href="./basket.html" class="cart-link">Basket <span class="cart-count">0</span></a>
-    </nav>
-  </div>
-</header>
-
+      <form id="navSearchForm" class="nav-search" role="search">
+        <input id="navSearchInput" type="search" placeholder="Search products..." />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </header>
+  
 <main class="container">
   <section class="card reveal" style="padding:18px;max-width:920px;">
     <h1>Our Story</h1>
