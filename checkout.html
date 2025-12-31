@@ -2,128 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Your Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout | Aviruchi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./script.js" defer></script>
 </head>
 <body>
-<script src="products.js"></script>
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="./index.html">
+      <img src="./image.jpeg" alt="Aviruchi logo">
+      <div>
+        <span>Aviruchi</span>
+        <div class="tagline">Authentic food, straight from home!!!</div>
+      </div>
+    </a>
+    <div style="margin-left:auto;font-weight:700;color:var(--muted);font-size:14px;">Secure checkout</div>
+  </div>
+</header>
 
-<script>
-/* ---------------------------------------------------------
-   AVIRUCHI CHECKOUT ENGINE — ONE BIG SCRIPT
-   Works with your existing products.js + localStorage basket
---------------------------------------------------------- */
+<main class="container">
+  <h1 style="margin-bottom:10px;">Checkout</h1>
 
-// Load basket from localStorage
-function loadCheckoutBasket() {
-  const saved = localStorage.getItem("aviruchi_basket");
-  return saved ? JSON.parse(saved) : [];
-}
-
-// Save basket back to localStorage
-function saveCheckoutBasket(basket) {
-  localStorage.setItem("aviruchi_basket", JSON.stringify(basket));
-}
-
-// Remove item by index
-function removeFromBasket(index) {
-  const basket = loadCheckoutBasket();
-  basket.splice(index, 1);
-  saveCheckoutBasket(basket);
-  renderCheckoutBasket();
-}
-
-// Render basket summary on the right
-function renderCheckoutBasket() {
-  const basket = loadCheckoutBasket();
-
-  const summaryEl = document.getElementById("basket-summary");
-  const countEl = document.getElementById("checkout-count");
-  const subtotalEl = document.getElementById("basket-subtotal");
-  const totalEl = document.getElementById("basket-total");
-  const headerCount = document.getElementById("basket-count");
-
-  // Update basket count in header
-  if (headerCount) {
-    const totalItems = basket.reduce((sum, item) => sum + item.qty, 0);
-    headerCount.textContent = totalItems;
-  }
-
-  // Update item count text
-  if (countEl) {
-    const totalItems = basket.reduce((sum, item) => sum + item.qty, 0);
-    countEl.textContent = `${totalItems} items`;
-  }
-
-  // Render basket items
-  if (summaryEl) {
-    summaryEl.innerHTML = basket.map((item, index) => {
-      const packLabel = item.pack ? ` (${item.pack.label})` : "";
-      const price = item.pack?.price || 0;
-      const subtotal = (price * item.qty).toFixed(2);
-
-      return `
-        <div class="basket-item">
+  <div class="row">
+    <section class="card" style="padding:14px;">
+      <h2 style="font-size:22px;">Delivery details</h2>
+      <form id="checkoutForm" class="form">
+        <div class="two">
           <div>
-            <strong>${item.name}${packLabel}</strong>
-            <div>Qty: ${item.qty}</div>
+            <label>First name</label>
+            <input required>
           </div>
-          <div class="basket-item-right">
-            <span>£${subtotal}</span>
-            <button class="remove-btn" onclick="removeFromBasket(${index})">Remove</button>
+          <div>
+            <label>Last name</label>
+            <input required>
           </div>
         </div>
-      `;
-    }).join("");
-  }
+        <div>
+          <label>Email</label>
+          <input type="email" required>
+        </div>
+        <div>
+          <label>Address</label>
+          <input required>
+        </div>
+        <div class="two">
+          <div>
+            <label>City</label>
+            <input required>
+          </div>
+          <div>
+            <label>Postcode</label>
+            <input required>
+          </div>
+        </div>
+        <button type="submit" class="btn-pill full" style="background:var(--ok);margin-top:8px;">Pay &amp; place order</button>
+        <small>This is a demo checkout; no real payment is charged.</small>
+      </form>
+    </section>
 
-  // Calculate totals
-  const subtotal = basket.reduce((sum, item) => {
-    const price = item.pack?.price || 0;
-    return sum + item.qty * price;
-  }, 0);
+    <aside class="card" style="padding:14px;height:fit-content;">
+      <h2 style="font-size:22px;">Order summary</h2>
+      <div id="checkoutSummary"></div>
+    </aside>
+  </div>
+</main>
 
-  if (subtotalEl) subtotalEl.textContent = `£${subtotal.toFixed(2)}`;
-  if (totalEl) totalEl.textContent = `£${(subtotal + 3.99).toFixed(2)}`;
-}
-
-// Render suggested products on the left
-function renderSuggestedProducts() {
-  if (!window.PRODUCTS) return;
-
-  const container = document.getElementById("suggested-products");
-  if (!container) return;
-
-  // Pick 6 random products
-  const suggestions = [...PRODUCTS]
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 6);
-
-  container.innerHTML = suggestions.map(p => {
-    const price = p.packSizes?.[0]?.price || 0;
-
-    return `
-      <li class="sidebar-link suggested-item">
-        <strong>${p.name}</strong><br>
-        <span>£${price.toFixed(2)}</span><br>
-        <button class="suggested-add"
-          onclick='addToBasket(PRODUCTS.find(x => x.id === "${p.id}"), 1, ${JSON.stringify(p.packSizes?.[0])})'>
-          Add
-        </button>
-      </li>
-    `;
-  }).join("");
-}
-
-// Initialise checkout page
-document.addEventListener("DOMContentLoaded", () => {
-  renderCheckoutBasket();
-  renderSuggestedProducts();
-});
-</script>
-
+<footer>
+  © 2025 Aviruchi • Freshly made in India • Delivered across the UK
+</footer>
 </body>
 </html>
-
-
-
-
