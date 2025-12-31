@@ -748,13 +748,13 @@ p {
 
 [data-category]:hover {
   background: #ffe6cc;
-  border-color: #ff9900;
+  border-color: #BF7B30;
 }
 
 [data-category].active {
-  background: #ff9900;
+  background: #BF7B30;
   color: white;
-  border-color: #ff9900;
+  border-color: #BF7B30;
   transform: scale(1.05);
 }
 /* Fade-in animation */
@@ -776,9 +776,9 @@ p {
 
 /* Active category */
 [data-category].active {
-  background: #ff9900;
+  background: #BF7B30;
   color: white;
-  border-color: #ff9900;
+  border-color: #BF7B30;
   transform: scale(1.05);
 }
 .checkout-layout {
@@ -845,7 +845,7 @@ p {
 }
 
 .btn-primary:hover {
-  background: var(--accent, #d35400); /* keeps your theme */
+  background: var(--accent, #BF7B30); /* keeps your theme */
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
