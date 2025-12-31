@@ -1,76 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Home | Aviruchi</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aviruchi</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
-  <script src="./script.js" defer></script>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
-<body>
-<header class="site-header">
-  <div class="container navbar">
-    <a class="brand" href="./index.html">
-      <img src="./assets/logo-brown.png" alt="Aviruchi logo">
+
+<body class="page-home">
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html" aria-label="Aviruchi home">
+        <img src="assets/logo-brown.png" alt="Aviruchi logo">
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="basket.html">Basket <span class="cart-count">0</span></a>
+      </nav>
+
+      <form id="navSearchForm" class="nav-search" role="search">
+        <input id="navSearchInput" type="search" placeholder="Search products..." />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card hero">
       <div>
-        <div class="name">Aviruchi</div>
-        <div class="tag">Authentic food, straight from home!!!</div>
+        <h1>Authentic flavours straight from home</h1>
+        <p>Homemade sweets, snacks, pickles, podis and more — crafted with tradition and delivered with care.</p>
+        <p>Use the search bar above to find items instantly.</p>
       </div>
-    </a>
+      <div class="hero-media">
+        <img src="assets/hero-behind-scenes.jpeg" alt="Aviruchi behind the scenes">
+      </div>
+    </section>
 
-    <button class="menu-btn" aria-label="Menu">☰</button>
-
-    <nav class="nav-links" aria-label="Primary">
-      <a href="./index.html">Home</a>
-      <a href="./products.html">Products</a>
-      <a href="./about.html">About</a>
-      <a href="./basket.html" class="cart-link">Basket <span class="cart-count">0</span></a>
-    </nav>
-  </div>
-</header>
-
-<main class="container">
-  <section class="card hero reveal">
-    <div>
-      <h1>Authentic foods straight from home</h1>
-      <p>Shop sweets, snacks, pickles, podis, papadums and mixes. Choose pack size, pick quantity, and add to your trolley.</p>
-      <div class="small">Use the search below for fast filtering.</div>
+    <div class="section-head">
+      <h2>Popular picks</h2>
+      <div class="small">Quick links to favourites.</div>
     </div>
 
-    <div class="hero-media">
-      <img src="./assets/hero-behind-scenes.jpeg" alt="Aviruchi behind the scenes">
+    <div class="picks-grid">
+      <article class="card pick-card">
+        <div class="pick-img"></div>
+        <div class="pick-body">
+          <div class="pick-title">Kaju Katli</div>
+          <div class="small">Classic premium sweet.</div>
+          <a class="pick-link" href="products.html?search=Kaju%20Katli">Shop</a>
+        </div>
+      </article>
+
+      <article class="card pick-card">
+        <div class="pick-img"></div>
+        <div class="pick-body">
+          <div class="pick-title">Mixture</div>
+          <div class="small">Crunchy, spicy, addictive.</div>
+          <a class="pick-link" href="products.html?search=Mixture">Shop</a>
+        </div>
+      </article>
+
+      <article class="card pick-card">
+        <div class="pick-img"></div>
+        <div class="pick-body">
+          <div class="pick-title">Gongura Pickle</div>
+          <div class="small">Bold, tangy favourite.</div>
+          <a class="pick-link" href="products.html?search=Gongura">Shop</a>
+        </div>
+      </article>
+
+      <article class="card pick-card">
+        <div class="pick-img"></div>
+        <div class="pick-body">
+          <div class="pick-title">Idly Spice Powder</div>
+          <div class="small">Perfect with ghee.</div>
+          <a class="pick-link" href="products.html?search=Idly">Shop</a>
+        </div>
+      </article>
     </div>
-  </section>
+  </main>
 
-  <div class="section-head">
-    <h2>Search</h2>
-    <div class="small">Search opens Products with results filtered.</div>
-  </div>
-
-  <section class="card reveal" style="padding:14px;">
-    <form id="homeSearchForm" class="search-row" style="margin:0;">
-      <input id="homeSearchInput" type="search" placeholder="Search products (e.g. Murukku, Kaju, Pickle)..." />
-      <button type="submit">Search</button>
-    </form>
-  </section>
-
-  <div class="section-head">
-    <h2>Categories</h2>
-    <div class="small">Jump straight to a section.</div>
-  </div>
-  <div class="chips reveal" id="categoryChips"></div>
-
-  <div class="section-head">
-    <h2>Popular picks</h2>
-    <a class="chip reveal" href="./products.html">Browse all →</a>
-  </div>
-  <section class="grid" id="favGrid"></section>
-</main>
-
-<footer>
-  © 2025 Aviruchi • Freshly made in India • Delivered across the UK
-</footer>
+  <footer>© 2025 Aviruchi</footer>
 </body>
 </html>

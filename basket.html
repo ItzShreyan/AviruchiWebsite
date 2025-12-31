@@ -1,292 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Basket | Aviruchi</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Basket • Aviruchi</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Core styles -->
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./products.css">
-
-  <!-- Button hover animation -->
-  <style>
-    .btn-primary {
-      transition: all 0.25s ease;
-      transform: translateY(0);
-      font-size: 1.1rem;
-      padding: 14px 20px;
-      border-radius: 8px;
-    }
-    .btn-primary:hover {
-      background: var(--accent, #d35400);
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html" aria-label="Aviruchi home">
+        <img src="assets/logo-brown.png" alt="Aviruchi logo">
+      </a>
 
-  <!-- HEADER -->
-  <header class="global-header">
-    <div class="global-header-inner">
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="basket.html">Basket <span class="cart-count">0</span></a>
+      </nav>
 
-      <div class="gh-left">
-        <a href="index.html" class="gh-logo">
-          <img src="aviruchi-logo.png" alt="Aviruchi Logo" class="logo">
-        </a>
-
-        <nav class="gh-nav">
-          <a href="index.html">Home</a>
-          <a href="products.html">Products</a>
-          <a href="about.html">About</a>
-          <a href="basket.html" class="basket-link active">
-            Basket <span class="cart-count">0</span>
-          </a>
-        </nav>
-      </div>
-
-      <div class="gh-center">
-        <form id="search-form" class="gh-search">
-          <input type="text" id="search-input" placeholder="Search Aviruchi products..." />
-          <button type="submit">Search</button>
-        </form>
-      </div>
-
-      <div class="gh-right">
-        <a href="https://wa.me/447344269839" target="_blank" class="gh-whatsapp">
-          WhatsApp Us
-        </a>
-      </div>
-
+      <form id="navSearchForm" class="nav-search" role="search">
+        <input id="navSearchInput" type="search" placeholder="Search products..." />
+        <button type="submit">Search</button>
+      </form>
     </div>
   </header>
 
-  <!-- MAIN CONTENT -->
   <main class="container">
-
-    <!-- Recommended Section -->
-    <section class="card reveal" style="padding:16px; margin-bottom:20px;">
-      <h3>Recommended for you</h3>
-      <div id="recommendedProducts"></div>
-    </section>
-
-    <!-- Basket Heading -->
-    <div class="section-head">
-      <h2>Your basket</h2>
-      <div class="small">Review your items and submit your order.</div>
-    </div>
-
-    <!-- Basket + Summary -->
     <div class="row">
-
-      <!-- Basket Items -->
-      <section class="card reveal" style="padding:16px;">
-        <div id="basketEmpty" class="small" style="display:none;">Your basket is empty.</div>
+      <section class="card" style="padding:18px">
+        <h2>Your basket</h2>
+        <div id="basketEmpty" style="display:none;color:#8a7e77">Your basket is empty.</div>
         <div id="basketList"></div>
       </section>
 
-      <!-- Summary -->
-      <aside class="card reveal" style="padding:16px; height:fit-content;">
-        <h3 style="margin:0 0 10px;">Summary</h3>
+      <aside class="card" style="padding:18px">
+        <h3>Summary</h3>
+        <div class="summary-row"><span>Items</span><span id="sumItems">0</span></div>
+        <div class="summary-row"><span>Subtotal</span><span>£<span id="sumSubtotal">0.00</span></span></div>
+        <div class="summary-row"><span>Delivery</span><span>£<span id="sumDelivery">0.00</span></span></div>
+        <div class="summary-row total"><span>Total</span><span>£<span id="sumTotal">0.00</span></span></div>
 
-        <div class="summary-row">
-          <span>Items</span>
-          <span id="sumItems">0</span>
-        </div>
-
-        <div class="summary-row">
-          <span>Subtotal</span>
-          <span>£<span id="sumSubtotal">0.00</span></span>
-        </div>
-
-        <div class="summary-row">
-          <span>Delivery</span>
-          <span>£<span id="sumDelivery">0.00</span></span>
-        </div>
-
-        <div class="summary-row total">
-          <span>Total</span>
-          <span>£<span id="sumTotal">0.00</span></span>
-        </div>
-
-        <button id="submitOrder" class="btn-primary">Submit Order</button>
+        <button id="goCheckout" class="btn-primary" type="button">Proceed to checkout</button>
       </aside>
-
     </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    © 2025 Aviruchi • Freshly made in India • Delivered across the UK
-  </footer>
-
-  <!-- FULL STANDALONE SCRIPT -->
-  <script>
-    /* ------------------------------
-       CART STORAGE
-    ------------------------------ */
-    const CART_KEY = "aviruchi_cart_standalone";
-
-    function getCart() {
-      return JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-    }
-
-    function setCart(cart) {
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    }
-
-    /* ------------------------------
-       MONEY FORMATTER
-    ------------------------------ */
-    function money(n) {
-      return n.toFixed(2);
-    }
-
-    /* ------------------------------
-       BASKET CALCULATIONS
-    ------------------------------ */
-    function detailedLines() {
-      const cart = getCart();
-      return cart.map(item => ({
-        ...item,
-        lineTotal: item.qty * item.pack.price
-      }));
-    }
-
-    function totals() {
-      const lines = detailedLines();
-      const subtotal = lines.reduce((a, b) => a + b.lineTotal, 0);
-      const delivery = subtotal > 0 ? 2.99 : 0;
-      return {
-        items: lines.reduce((a, b) => a + b.qty, 0),
-        subtotal,
-        delivery,
-        total: subtotal + delivery
-      };
-    }
-
-    /* ------------------------------
-       RENDER BASKET
-    ------------------------------ */
-    function renderBasketPage() {
-      const listEl = document.querySelector("#basketList");
-      const emptyEl = document.querySelector("#basketEmpty");
-      const sumItems = document.querySelector("#sumItems");
-      const sumSub = document.querySelector("#sumSubtotal");
-      const sumDel = document.querySelector("#sumDelivery");
-      const sumTotal = document.querySelector("#sumTotal");
-
-      const lines = detailedLines();
-
-      if (!lines.length) {
-        emptyEl.style.display = "block";
-        listEl.innerHTML = "";
-        sumItems.textContent = "0";
-        sumSub.textContent = "0.00";
-        sumDel.textContent = "0.00";
-        sumTotal.textContent = "0.00";
-        return;
-      }
-
-      emptyEl.style.display = "none";
-
-      listEl.innerHTML = lines.map((l, idx) => `
-        <div class="basket-item reveal">
-          <img class="basket-thumb" src="${l.product.img}" alt="${l.product.name}">
-          
-          <div>
-            <div class="product-title" style="font-weight:900">${l.product.name}</div>
-            <div class="small">${l.pack.label}</div>
-
-            <div style="display:flex; gap:12px; align-items:center; margin-top:6px; flex-wrap:wrap;">
-              <div class="qty">
-                <button type="button" data-dec="${idx}">−</button>
-                <input value="${l.qty}" readonly>
-                <button type="button" data-inc="${idx}">+</button>
-              </div>
-
-              <button class="remove" type="button" data-rem="${idx}">Remove</button>
-            </div>
-          </div>
-
-          <div style="font-weight:900">£${money(l.lineTotal)}</div>
-        </div>
-      `).join("");
-
-      listEl.onclick = (e) => {
-        const dec = e.target.closest("[data-dec]");
-        const inc = e.target.closest("[data-inc]");
-        const rem = e.target.closest("[data-rem]");
-
-        if (dec) changeQty(Number(dec.dataset.dec), -1);
-        if (inc) changeQty(Number(inc.dataset.inc), +1);
-        if (rem) removeLine(Number(rem.dataset.rem));
-
-        renderBasketPage();
-      };
-
-      const t = totals();
-      sumItems.textContent = t.items;
-      sumSub.textContent = money(t.subtotal);
-      sumDel.textContent = money(t.delivery);
-      sumTotal.textContent = money(t.total);
-    }
-
-    function changeQty(index, delta) {
-      const cart = getCart();
-      if (!cart[index]) return;
-      cart[index].qty += delta;
-      if (cart[index].qty <= 0) cart.splice(index, 1);
-      setCart(cart);
-    }
-
-    function removeLine(index) {
-      const cart = getCart();
-      cart.splice(index, 1);
-      setCart(cart);
-    }
-
-    /* ------------------------------
-       SUBMIT ORDER → WHATSAPP
-       (WITH ORDER SUMMARY)
-    ------------------------------ */
-    document.addEventListener("DOMContentLoaded", () => {
-      renderBasketPage();
-
-      const btn = document.querySelector("#submitOrder");
-      btn.addEventListener("click", () => {
-
-        const lines = detailedLines();
-        const t = totals();
-
-        // Build order summary text
-        let summary = "Hello! I would like to place an order.\n\nOrder Summary:\n";
-
-        if (lines.length === 0) {
-          summary += "(Basket was empty)\n";
-        } else {
-          lines.forEach(l => {
-            summary += `- ${l.qty}× ${l.product.name} (${l.pack.label}) — £${money(l.lineTotal)}\n`;
-          });
-
-          summary += `\nSubtotal: £${money(t.subtotal)}`;
-          summary += `\nDelivery: £${money(t.delivery)}`;
-          summary += `\nTotal: £${money(t.total)}\n`;
-        }
-
-        const phone = "447344269839";
-        const url = `https://wa.me/${phone}?text=${encodeURIComponent(summary)}`;
-
-        window.open(url, "_blank");
-      });
-    });
-  </script>
-
+  <footer>© 2025 Aviruchi</footer>
 </body>
 </html>
