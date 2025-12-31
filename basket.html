@@ -4,57 +4,56 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Basket | Aviruchi</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./script.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="nav-wrap">
-      <a href="index.html" class="brand">
-        <img src="image.jpeg" alt="Logo">
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="./index.html">
+      <img src="./image.jpeg" alt="Aviruchi logo">
+      <div>
         <span>Aviruchi</span>
-      </a>
-      <button class="menu-btn">☰</button>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html">About</a>
-        <a href="basket.html" class="active cart-link">
-          Basket <span class="cart-count">0</span>
-        </a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <h1>Your Basket</h1>
-    <div style="display:grid; grid-template-columns: 2fr 1fr; gap:30px;" class="hero-layout">
-      <!-- Basket Items Container -->
-      <div id="basket-list" style="background:#fff; padding:20px; border-radius:16px; box-shadow:var(--shadow);">
-        <!-- Items injected by JS -->
+        <div class="tagline">Authentic food, straight from home!!!</div>
       </div>
+    </a>
 
-      <!-- Summary -->
-      <div style="background:#fff; padding:20px; border-radius:16px; box-shadow:var(--shadow); height:fit-content;">
-        <h3>Summary</h3>
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-          <span>Subtotal</span>
-          <span id="subtotal">£0.00</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-          <span>Delivery</span>
-          <span>£3.99</span>
-        </div>
-        <div style="border-top:1px solid #eee; padding-top:10px; display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem;">
-          <span>Total</span>
-          <span id="total">£0.00</span>
-        </div>
-        <a href="checkout.html" id="checkout-btn" class="btn-primary" style="width:100%; margin-top:20px; text-align:center;">Secure Checkout</a>
-      </div>
-    </div>
-  </main>
+    <button class="menu-btn" aria-label="Toggle menu">☰</button>
 
-  <footer>&copy; 2025 Aviruchi UK</footer>
-  <script src="script.js"></script>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="./index.html">Home</a>
+      <a href="./products.html">Products</a>
+      <a href="./about.html">About</a>
+      <a href="./basket.html" class="cart-link">Basket <span class="cart-count">0</span></a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <h1 style="margin-bottom:10px;">Your basket</h1>
+
+  <div class="row">
+    <section class="card" style="padding:14px;">
+      <div id="basketEmpty" style="display:none;color:#8a7e77;font-size:14px;">Your basket is empty. Browse products to add items.</div>
+      <div id="basketList"></div>
+    </section>
+
+    <aside class="card" style="padding:14px;height:fit-content;">
+      <h2 style="font-size:22px;">Summary</h2>
+      <div class="summary-row"><span>Items</span><span id="sumItems">0</span></div>
+      <div class="summary-row"><span>Subtotal</span><span>£<span id="sumSubtotal">0.00</span></span></div>
+      <div class="summary-row"><span>Delivery</span><span>£<span id="sumDelivery">0.00</span></span></div>
+      <div class="summary-row total"><span>Total</span><span>£<span id="sumTotal">0.00</span></span></div>
+      <button id="goCheckout" class="btn-pill full" style="margin-top:10px;">Order now</button>
+      <small>Checkout is only accessible from this button.</small>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  © 2025 Aviruchi • Freshly made in India • Delivered across the UK
+</footer>
 </body>
 </html>
