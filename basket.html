@@ -6,21 +6,21 @@
   <title>Basket | Aviruchi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./style.css">
   <script src="./script.js" defer></script>
 </head>
 <body>
 <header class="site-header">
   <div class="container navbar">
     <a class="brand" href="./index.html">
-      <img src="./image.jpeg" alt="Aviruchi logo">
+      <img src="./assets/logo-brown.png" alt="Aviruchi logo">
       <div>
-        <span>Aviruchi</span>
-        <div class="tagline">Authentic food, straight from home!!!</div>
+        <div class="name">Aviruchi</div>
+        <div class="tag">Authentic food, straight from home!!!</div>
       </div>
     </a>
 
-    <button class="menu-btn" aria-label="Toggle menu">☰</button>
+    <button class="menu-btn" aria-label="Menu">☰</button>
 
     <nav class="nav-links" aria-label="Primary">
       <a href="./index.html">Home</a>
@@ -32,22 +32,24 @@
 </header>
 
 <main class="container">
-  <h1 style="margin-bottom:10px;">Your basket</h1>
+  <div class="section-head">
+    <h2>Your basket</h2>
+    <div class="small">Review and checkout when ready.</div>
+  </div>
 
   <div class="row">
-    <section class="card" style="padding:14px;">
-      <div id="basketEmpty" style="display:none;color:#8a7e77;font-size:14px;">Your basket is empty. Browse products to add items.</div>
+    <section class="card reveal" style="padding:16px;">
+      <div id="basketEmpty" class="small" style="display:none;">Your basket is empty.</div>
       <div id="basketList"></div>
     </section>
 
-    <aside class="card" style="padding:14px;height:fit-content;">
-      <h2 style="font-size:22px;">Summary</h2>
+    <aside class="card reveal" style="padding:16px; height:fit-content;">
+      <h3 style="margin:0 0 10px;">Summary</h3>
       <div class="summary-row"><span>Items</span><span id="sumItems">0</span></div>
       <div class="summary-row"><span>Subtotal</span><span>£<span id="sumSubtotal">0.00</span></span></div>
       <div class="summary-row"><span>Delivery</span><span>£<span id="sumDelivery">0.00</span></span></div>
       <div class="summary-row total"><span>Total</span><span>£<span id="sumTotal">0.00</span></span></div>
-      <button id="goCheckout" class="btn-pill full" style="margin-top:10px;">Order now</button>
-      <small>Checkout is only accessible from this button.</small>
+      <button id="goCheckout" class="btn-primary">Order now</button>
     </aside>
   </div>
 </main>

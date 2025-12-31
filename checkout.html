@@ -6,29 +6,39 @@
   <title>Checkout | Aviruchi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./style.css">
   <script src="./script.js" defer></script>
 </head>
 <body>
 <header class="site-header">
   <div class="container navbar">
     <a class="brand" href="./index.html">
-      <img src="./image.jpeg" alt="Aviruchi logo">
+      <img src="./assets/logo-brown.png" alt="Aviruchi logo">
       <div>
-        <span>Aviruchi</span>
-        <div class="tagline">Authentic food, straight from home!!!</div>
+        <div class="name">Aviruchi</div>
+        <div class="tag">Authentic food, straight from home!!!</div>
       </div>
     </a>
-    <div style="margin-left:auto;font-weight:700;color:var(--muted);font-size:14px;">Secure checkout</div>
+
+    <button class="menu-btn" aria-label="Menu">☰</button>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="./index.html">Home</a>
+      <a href="./products.html">Products</a>
+      <a href="./about.html">About</a>
+      <a href="./basket.html" class="cart-link">Basket <span class="cart-count">0</span></a>
+    </nav>
   </div>
 </header>
 
 <main class="container">
-  <h1 style="margin-bottom:10px;">Checkout</h1>
+  <div class="section-head">
+    <h2>Checkout</h2>
+    <div class="small">Demo checkout (no real payments).</div>
+  </div>
 
   <div class="row">
-    <section class="card" style="padding:14px;">
-      <h2 style="font-size:22px;">Delivery details</h2>
+    <section class="card reveal" style="padding:16px;">
       <form id="checkoutForm" class="form">
         <div class="two">
           <div>
@@ -58,13 +68,13 @@
             <input required>
           </div>
         </div>
-        <button type="submit" class="btn-pill full" style="background:var(--ok);margin-top:8px;">Pay &amp; place order</button>
-        <small>This is a demo checkout; no real payment is charged.</small>
+
+        <button class="btn-primary" type="submit" style="background:var(--ok);">Pay &amp; place order</button>
       </form>
     </section>
 
-    <aside class="card" style="padding:14px;height:fit-content;">
-      <h2 style="font-size:22px;">Order summary</h2>
+    <aside class="card reveal" style="padding:16px;height:fit-content;">
+      <h3 style="margin:0 0 10px;">Order summary</h3>
       <div id="checkoutSummary"></div>
     </aside>
   </div>

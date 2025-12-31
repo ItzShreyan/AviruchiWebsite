@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aviruchi | Authentic food, straight from home</title>
+  <title>Home | Aviruchi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./style.css">
   <script src="./script.js" defer></script>
 </head>
 <body>
 <header class="site-header">
   <div class="container navbar">
     <a class="brand" href="./index.html">
-      <img src="./image.jpeg" alt="Aviruchi logo">
+      <img src="./assets/logo-brown.png" alt="Aviruchi logo">
       <div>
-        <span>Aviruchi</span>
-        <div class="tagline">Authentic food, straight from home!!!</div>
+        <div class="name">Aviruchi</div>
+        <div class="tag">Authentic food, straight from home!!!</div>
       </div>
     </a>
 
-    <button class="menu-btn" aria-label="Toggle menu">☰</button>
+    <button class="menu-btn" aria-label="Menu">☰</button>
 
     <nav class="nav-links" aria-label="Primary">
       <a href="./index.html">Home</a>
@@ -32,29 +32,41 @@
 </header>
 
 <main class="container">
-  <section class="hero">
+  <section class="card hero reveal">
     <div>
-      <h1>Authentic Indian sweets and snacks, delivered across the UK.</h1>
-      <p>Freshly prepared in India and air‑shipped to your doorstep. Explore snacks, sweets, podis, pickles, papadums, mixes and more.</p>
-
-      <form id="homeSearchForm" class="searchbar">
-        <input id="homeSearchInput" type="search" placeholder="Search products (e.g. Kaju, Murukku, Pickle)..." />
-        <button type="submit">Search</button>
-      </form>
-      <small>Use the search or browse categories like an online supermarket.</small>
+      <h1>Authentic foods straight from home</h1>
+      <p>Shop sweets, snacks, pickles, podis, papadums and mixes. Choose pack size, pick quantity, and add to your trolley.</p>
+      <div class="small">Use the search below for fast filtering.</div>
     </div>
 
     <div class="hero-media">
-      <img src="https://user-gen-media-assets.s3.amazonaws.com/gemini_images/3ad76d18-e30a-482b-8711-4a058d223598.png" alt="Assorted Indian sweets on a plate">
+      <img src="./assets/hero-behind-scenes.jpeg" alt="Aviruchi behind the scenes">
     </div>
   </section>
 
-  <div class="section-header">
-    <h2>Popular picks</h2>
-    <a href="./products.html" class="btn-pill">View all products</a>
+  <div class="section-head">
+    <h2>Search</h2>
+    <div class="small">Search opens Products with results filtered.</div>
   </div>
 
-  <section id="favGrid" class="grid"></section>
+  <section class="card reveal" style="padding:14px;">
+    <form id="homeSearchForm" class="search-row" style="margin:0;">
+      <input id="homeSearchInput" type="search" placeholder="Search products (e.g. Murukku, Kaju, Pickle)..." />
+      <button type="submit">Search</button>
+    </form>
+  </section>
+
+  <div class="section-head">
+    <h2>Categories</h2>
+    <div class="small">Jump straight to a section.</div>
+  </div>
+  <div class="chips reveal" id="categoryChips"></div>
+
+  <div class="section-head">
+    <h2>Popular picks</h2>
+    <a class="chip reveal" href="./products.html">Browse all →</a>
+  </div>
+  <section class="grid" id="favGrid"></section>
 </main>
 
 <footer>
