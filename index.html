@@ -2,177 +2,129 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aviruchi | Authentic Flavours</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>Your Page Title</title>
 </head>
 <body>
+<script src="products.js"></script>
 
-  <!-- TOP GLOBAL HEADER (ASDA-STYLE) -->
-  <header class="global-header">
-    <div class="global-header-inner">
-      <div class="gh-left">
-        <a href="index.html" class="gh-logo">
-          <img src="image.jpeg" alt="Aviruchi Logo">
-        </a>
-        <nav class="gh-nav">
-          <a href="index.html" class="active">Home</a>
-          <a href="products.html">Products</a>
-          <a href="about.html">About</a>
-          <a href="basket.html" class="basket-link">
-            Basket <span class="cart-count">0</span>
-          </a>
-        </nav>
-      </div>
+<script>
+/* ---------------------------------------------------------
+   AVIRUCHI CHECKOUT ENGINE — ONE BIG SCRIPT
+   Works with your existing products.js + localStorage basket
+--------------------------------------------------------- */
 
-      <div class="gh-center">
-        <form id="search-form" class="gh-search">
-          <input type="text" placeholder="Search products..." />
-          <button type="submit">Search</button>
-        </form>
-      </div>
+// Load basket from localStorage
+function loadCheckoutBasket() {
+  const saved = localStorage.getItem("aviruchi_basket");
+  return saved ? JSON.parse(saved) : [];
+}
 
-      <div class="gh-right">
-        <a href="https://wa.me/447000000000" target="_blank" class="gh-whatsapp">
-          WhatsApp Us
-        </a>
-      </div>
-    </div>
-  </header>
+// Save basket back to localStorage
+function saveCheckoutBasket(basket) {
+  localStorage.setItem("aviruchi_basket", JSON.stringify(basket));
+}
 
-  <!-- PROMO BANNER (LIKE ASDA RED BANNER) -->
-  <section class="promo-banner">
-    <div class="promo-inner">
-      <div class="promo-text">
-        <strong>Get Ready for the New Year Celebrations</strong>
-        <span>Pre-order your favourite Aviruchi snacks, sweets & pickles now.</span>
-      </div>
-      <a href="products.html" class="promo-btn">View</a>
-    </div>
-  </section>
+// Remove item by index
+function removeFromBasket(index) {
+  const basket = loadCheckoutBasket();
+  basket.splice(index, 1);
+  saveCheckoutBasket(basket);
+  renderCheckoutBasket();
+}
 
-  <!-- MAIN CONTENT WRAPPER -->
-  <main class="home-main">
+// Render basket summary on the right
+function renderCheckoutBasket() {
+  const basket = loadCheckoutBasket();
 
-    <!-- SHOP OUR CATEGORIES (CIRCULAR ICONS) -->
-    <section class="home-section">
-      <div class="section-header">
-        <h2>Shop our categories</h2>
-      </div>
+  const summaryEl = document.getElementById("basket-summary");
+  const countEl = document.getElementById("checkout-count");
+  const subtotalEl = document.getElementById("basket-subtotal");
+  const totalEl = document.getElementById("basket-total");
+  const headerCount = document.getElementById("basket-count");
 
-      <div class="category-circle-row">
-        <a href="products.html#snacks" class="category-circle">
-          <div class="circle-icon">🥨</div>
-          <div class="circle-label">Snacks</div>
-        </a>
-        <a href="products.html#sweets" class="category-circle">
-          <div class="circle-icon">🍬</div>
-          <div class="circle-label">Sweets</div>
-        </a>
-        <a href="products.html#podis" class="category-circle">
-          <div class="circle-icon">🌶️</div>
-          <div class="circle-label">Podis / Spice Powders</div>
-        </a>
-        <a href="products.html#pickles" class="category-circle">
-          <div class="circle-icon">🥒</div>
-          <div class="circle-label">Pickles</div>
-        </a>
-        <a href="products.html#papadums" class="category-circle">
-          <div class="circle-icon">🫓</div>
-          <div class="circle-label">Papadums</div>
-        </a>
-        <a href="products.html#mixes" class="category-circle">
-          <div class="circle-icon">🍛</div>
-          <div class="circle-label">Mixes</div>
-        </a>
-        <a href="products.html#other" class="category-circle">
-          <div class="circle-icon">✨</div>
-          <div class="circle-label">Other</div>
-        </a>
-      </div>
-    </section>
+  // Update basket count in header
+  if (headerCount) {
+    const totalItems = basket.reduce((sum, item) => sum + item.qty, 0);
+    headerCount.textContent = totalItems;
+  }
 
-    <!-- EVENTS & INSPIRATION (3 TILES LIKE ASDA) -->
-    <section class="home-section">
-      <div class="section-header">
-        <h2>Events & Inspiration</h2>
-      </div>
+  // Update item count text
+  if (countEl) {
+    const totalItems = basket.reduce((sum, item) => sum + item.qty, 0);
+    countEl.textContent = `${totalItems} items`;
+  }
 
-      <div class="events-grid">
-        <article class="event-card">
-          <div class="event-image placeholder-img"></div>
-          <div class="event-body">
-            <h3>Shop New Year Sweets</h3>
-            <p>Count down to the New Year with handcrafted Kaju Katli, Pootharekulu, laddus and more.</p>
-            <a href="products.html#sweets" class="event-link">Shop sweets ›</a>
+  // Render basket items
+  if (summaryEl) {
+    summaryEl.innerHTML = basket.map((item, index) => {
+      const packLabel = item.pack ? ` (${item.pack.label})` : "";
+      const price = item.pack?.price || 0;
+      const subtotal = (price * item.qty).toFixed(2);
+
+      return `
+        <div class="basket-item">
+          <div>
+            <strong>${item.name}${packLabel}</strong>
+            <div>Qty: ${item.qty}</div>
           </div>
-        </article>
-
-        <article class="event-card">
-          <div class="event-image placeholder-img"></div>
-          <div class="event-body">
-            <h3>Spice Up Your Kitchen</h3>
-            <p>From podis to pickles, bring home bold, authentic flavours straight from Andhra & Telangana.</p>
-            <a href="products.html#podis" class="event-link">Shop podis & pickles ›</a>
-          </div>
-        </article>
-
-        <article class="event-card">
-          <div class="event-image placeholder-img"></div>
-          <div class="event-body">
-            <h3>Quick Festive Mixes</h3>
-            <p>Ready mixes for pongal, upma, pulihora and more—perfect for busy celebrations.</p>
-            <a href="products.html#mixes" class="event-link">Shop mixes ›</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- FEATURED PRODUCTS STRIP (OPTIONAL, ASDA-LIKE) -->
-    <section class="home-section">
-      <div class="section-header">
-        <h2>Featured this season</h2>
-      </div>
-
-      <div class="featured-row">
-        <div class="featured-card">
-          <div class="featured-img placeholder-img"></div>
-          <div class="featured-body">
-            <h3>Kaju Katli</h3>
-            <p>Rich cashew fudge, perfect for gifting and celebrations.</p>
-            <a href="products.html#sweets" class="event-link">View in sweets ›</a>
+          <div class="basket-item-right">
+            <span>£${subtotal}</span>
+            <button class="remove-btn" onclick="removeFromBasket(${index})">Remove</button>
           </div>
         </div>
+      `;
+    }).join("");
+  }
 
-        <div class="featured-card">
-          <div class="featured-img placeholder-img"></div>
-          <div class="featured-body">
-            <h3>Gongura Pickle</h3>
-            <p>Tangy, spicy and deeply nostalgic—an Andhra classic.</p>
-            <a href="products.html#pickles" class="event-link">View in pickles ›</a>
-          </div>
-        </div>
+  // Calculate totals
+  const subtotal = basket.reduce((sum, item) => {
+    const price = item.pack?.price || 0;
+    return sum + item.qty * price;
+  }, 0);
 
-        <div class="featured-card">
-          <div class="featured-img placeholder-img"></div>
-          <div class="featured-body">
-            <h3>Pulihora Mix</h3>
-            <p>Temple-style tamarind rice in minutes, just add rice.</p>
-            <a href="products.html#mixes" class="event-link">View in mixes ›</a>
-          </div>
-        </div>
-      </div>
-    </section>
+  if (subtotalEl) subtotalEl.textContent = `£${subtotal.toFixed(2)}`;
+  if (totalEl) totalEl.textContent = `£${(subtotal + 3.99).toFixed(2)}`;
+}
 
-  </main>
+// Render suggested products on the left
+function renderSuggestedProducts() {
+  if (!window.PRODUCTS) return;
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <p>&copy; 2025 Aviruchi UK · Authentic flavours straight from home</p>
-    </div>
-  </footer>
+  const container = document.getElementById("suggested-products");
+  if (!container) return;
 
-  <script src="script.js"></script>
+  // Pick 6 random products
+  const suggestions = [...PRODUCTS]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 6);
+
+  container.innerHTML = suggestions.map(p => {
+    const price = p.packSizes?.[0]?.price || 0;
+
+    return `
+      <li class="sidebar-link suggested-item">
+        <strong>${p.name}</strong><br>
+        <span>£${price.toFixed(2)}</span><br>
+        <button class="suggested-add"
+          onclick='addToBasket(PRODUCTS.find(x => x.id === "${p.id}"), 1, ${JSON.stringify(p.packSizes?.[0])})'>
+          Add
+        </button>
+      </li>
+    `;
+  }).join("");
+}
+
+// Initialise checkout page
+document.addEventListener("DOMContentLoaded", () => {
+  renderCheckoutBasket();
+  renderSuggestedProducts();
+});
+</script>
+
 </body>
 </html>
+
+
+
+
+

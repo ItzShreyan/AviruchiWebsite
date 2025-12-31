@@ -2,59 +2,128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Checkout | Aviruchi</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Your Page Title</title>
 </head>
 <body>
-  <header class="site-header">
-    <div class="nav-wrap">
-      <a href="index.html" class="brand">
-        <img src="image.jpeg" alt="Logo">
-        <span>Aviruchi</span>
-      </a>
-      <div style="font-weight:700; color:var(--muted)">Secure Checkout</div>
-    </div>
-  </header>
+<script src="products.js"></script>
 
-  <main style="max-width: 800px;">
-    <h1>Checkout</h1>
-    <div style="display:grid; grid-template-columns: 1.5fr 1fr; gap:30px;" class="hero-layout">
-      
-      <!-- Form -->
-      <form onsubmit="processOrder(event)" style="background:#fff; padding:25px; border-radius:16px; box-shadow:var(--shadow);">
-        <h3>Delivery Details</h3>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
-          <div><label>First Name</label><input type="text" required></div>
-          <div><label>Last Name</label><input type="text" required></div>
-        </div>
-        <div style="margin-bottom:15px;"><label>Email</label><input type="email" required></div>
-        <div style="margin-bottom:15px;"><label>Address</label><input type="text" required></div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:20px;">
-          <div><label>City</label><input type="text" required></div>
-          <div><label>Postcode</label><input type="text" required></div>
-        </div>
-        
-        <h3>Payment</h3>
-        <div style="background:#f9f9f9; padding:15px; border-radius:8px; margin-bottom:20px; border:1px solid #eee;">
-          Mock Payment Gateway (No card needed)
-        </div>
+<script>
+/* ---------------------------------------------------------
+   AVIRUCHI CHECKOUT ENGINE — ONE BIG SCRIPT
+   Works with your existing products.js + localStorage basket
+--------------------------------------------------------- */
 
-        <button type="submit" class="btn-primary" style="width:100%;">Pay & Place Order</button>
-      </form>
+// Load basket from localStorage
+function loadCheckoutBasket() {
+  const saved = localStorage.getItem("aviruchi_basket");
+  return saved ? JSON.parse(saved) : [];
+}
 
-      <!-- Order Summary -->
-      <div style="background:#fff; padding:25px; border-radius:16px; box-shadow:var(--shadow); height:fit-content;">
-        <h3>Order Summary</h3>
-        <div id="checkout-summary">
-          <!-- Populated by JS -->
+// Save basket back to localStorage
+function saveCheckoutBasket(basket) {
+  localStorage.setItem("aviruchi_basket", JSON.stringify(basket));
+}
+
+// Remove item by index
+function removeFromBasket(index) {
+  const basket = loadCheckoutBasket();
+  basket.splice(index, 1);
+  saveCheckoutBasket(basket);
+  renderCheckoutBasket();
+}
+
+// Render basket summary on the right
+function renderCheckoutBasket() {
+  const basket = loadCheckoutBasket();
+
+  const summaryEl = document.getElementById("basket-summary");
+  const countEl = document.getElementById("checkout-count");
+  const subtotalEl = document.getElementById("basket-subtotal");
+  const totalEl = document.getElementById("basket-total");
+  const headerCount = document.getElementById("basket-count");
+
+  // Update basket count in header
+  if (headerCount) {
+    const totalItems = basket.reduce((sum, item) => sum + item.qty, 0);
+    headerCount.textContent = totalItems;
+  }
+
+  // Update item count text
+  if (countEl) {
+    const totalItems = basket.reduce((sum, item) => sum + item.qty, 0);
+    countEl.textContent = `${totalItems} items`;
+  }
+
+  // Render basket items
+  if (summaryEl) {
+    summaryEl.innerHTML = basket.map((item, index) => {
+      const packLabel = item.pack ? ` (${item.pack.label})` : "";
+      const price = item.pack?.price || 0;
+      const subtotal = (price * item.qty).toFixed(2);
+
+      return `
+        <div class="basket-item">
+          <div>
+            <strong>${item.name}${packLabel}</strong>
+            <div>Qty: ${item.qty}</div>
+          </div>
+          <div class="basket-item-right">
+            <span>£${subtotal}</span>
+            <button class="remove-btn" onclick="removeFromBasket(${index})">Remove</button>
+          </div>
         </div>
-      </div>
-    </div>
-  </main>
+      `;
+    }).join("");
+  }
 
-  <footer>&copy; 2025 Aviruchi UK</footer>
-  <script src="script.js"></script>
+  // Calculate totals
+  const subtotal = basket.reduce((sum, item) => {
+    const price = item.pack?.price || 0;
+    return sum + item.qty * price;
+  }, 0);
+
+  if (subtotalEl) subtotalEl.textContent = `£${subtotal.toFixed(2)}`;
+  if (totalEl) totalEl.textContent = `£${(subtotal + 3.99).toFixed(2)}`;
+}
+
+// Render suggested products on the left
+function renderSuggestedProducts() {
+  if (!window.PRODUCTS) return;
+
+  const container = document.getElementById("suggested-products");
+  if (!container) return;
+
+  // Pick 6 random products
+  const suggestions = [...PRODUCTS]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 6);
+
+  container.innerHTML = suggestions.map(p => {
+    const price = p.packSizes?.[0]?.price || 0;
+
+    return `
+      <li class="sidebar-link suggested-item">
+        <strong>${p.name}</strong><br>
+        <span>£${price.toFixed(2)}</span><br>
+        <button class="suggested-add"
+          onclick='addToBasket(PRODUCTS.find(x => x.id === "${p.id}"), 1, ${JSON.stringify(p.packSizes?.[0])})'>
+          Add
+        </button>
+      </li>
+    `;
+  }).join("");
+}
+
+// Initialise checkout page
+document.addEventListener("DOMContentLoaded", () => {
+  renderCheckoutBasket();
+  renderSuggestedProducts();
+});
+</script>
+
 </body>
 </html>
+
+
+
+
