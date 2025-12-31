@@ -2,34 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aviruchi Products</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Minimal fallback styles for testing */
-    body { font-family: sans-serif; padding: 2rem; background: #fffbe6; }
-    #products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
-    .product-card { background: #fff; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); padding: 1rem; }
-    .product-name { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem; }
-    .product-category, .product-spice, .product-rating, .product-price-row, .product-notes { font-size: 0.9rem; margin-bottom: 0.3rem; }
-    .product-controls { margin-top: 1rem; }
-    .qty-box { display: inline-flex; align-items: center; gap: 0.5rem; }
-    .qty-btn { padding: 0.3rem 0.6rem; }
-    .add-btn { margin-top: 0.5rem; padding: 0.5rem 1rem; background: #ff6600; color: white; border: none; border-radius: 4px; cursor: pointer; }
-    .add-btn.added { background: #00aa00; }
-    .pack-select { width: 100%; margin-bottom: 0.5rem; }
-    .spice-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
-    .spice-dot.hot { background: red; }
-    .spice-dot.medium { background: orange; }
-    .spice-dot.mild { background: green; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aviruchi | Authentic food, straight from home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./script.js" defer></script>
 </head>
 <body>
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="./index.html">
+      <img src="./image.jpeg" alt="Aviruchi logo">
+      <div>
+        <span>Aviruchi</span>
+        <div class="tagline">Authentic food, straight from home!!!</div>
+      </div>
+    </a>
 
-  <h1>Aviruchi Products</h1>
-  <div id="products-grid"></div>
+    <button class="menu-btn" aria-label="Toggle menu">☰</button>
 
-  <script src="products.js"></script>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="./index.html">Home</a>
+      <a href="./products.html">Products</a>
+      <a href="./about.html">About</a>
+      <a href="./basket.html" class="cart-link">Basket <span class="cart-count">0</span></a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div>
+      <h1>Authentic Indian sweets and snacks, delivered across the UK.</h1>
+      <p>Freshly prepared in India and air‑shipped to your doorstep. Explore snacks, sweets, podis, pickles, papadums, mixes and more.</p>
+
+      <form id="homeSearchForm" class="searchbar">
+        <input id="homeSearchInput" type="search" placeholder="Search products (e.g. Kaju, Murukku, Pickle)..." />
+        <button type="submit">Search</button>
+      </form>
+      <small>Use the search or browse categories like an online supermarket.</small>
+    </div>
+
+    <div class="hero-media">
+      <img src="https://user-gen-media-assets.s3.amazonaws.com/gemini_images/3ad76d18-e30a-482b-8711-4a058d223598.png" alt="Assorted Indian sweets on a plate">
+    </div>
+  </section>
+
+  <div class="section-header">
+    <h2>Popular picks</h2>
+    <a href="./products.html" class="btn-pill">View all products</a>
+  </div>
+
+  <section id="favGrid" class="grid"></section>
+</main>
+
+<footer>
+  © 2025 Aviruchi • Freshly made in India • Delivered across the UK
+</footer>
 </body>
 </html>
-<span id="basket-count">0</span>
