@@ -2169,6 +2169,17 @@ document.addEventListener("DOMContentLoaded", () => {
     loadBasket();
     updateBasketUI();
 
+    // If a search query was passed in the URL (from header search), use it
+    const params = new URLSearchParams(location.search);
+    const urlSearch = params.get("search") || "";
+    if (urlSearch) {
+      state.search = decodeURIComponent(urlSearch);
+      const searchInput = document.getElementById("search-input");
+      if (searchInput) searchInput.value = state.search;
+      const navSearch = document.getElementById("navSearchInput");
+      if (navSearch) navSearch.value = state.search;
+    }
+
     // Render products
     applyFiltersAndSort();
 
