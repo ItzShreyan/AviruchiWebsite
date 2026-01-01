@@ -953,3 +953,21 @@ p {
     z-index: 999999 !important;
     pointer-events: auto;
 }
+
+
+@keyframes preorderPulse {
+  0% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 0.7; transform: scale(1); }
+}
+.preorder-badge { display: inline-block; margin-top: 6px; padding: 4px 10px; background-color: #f63232; color: white; font-size: 13px; font-weight: 700; border-radius: 6px; }
+.outofstock-badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  background-color: #f63232;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 6px;
+}
