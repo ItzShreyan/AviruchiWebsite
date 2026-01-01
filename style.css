@@ -456,7 +456,7 @@ footer{
     grid-column: 1.5;
     grid-row: 2;
     font-family: "Playfair Display", serif;
-    font-size: 1rem;
+    font-size: 1.0rem;
     font-weight: 600;
     color: var(--ink);
     line-height: 1.2;
@@ -464,21 +464,73 @@ footer{
   }
 }
 @media (max-width: 600px) {
+
+  /* Force the navbar into 3 rows:
+     1) brand (logo + text)
+     2) links
+     3) search
+  */
   .navbar{
     flex-wrap: wrap;
+    align-items: center;
   }
 
-  /* Keep the links row above the search */
+  /* Row 1: brand takes full width */
+  .brand{
+    order: 1;
+    flex: 0 0 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 16px;
+    align-items: center;
+  }
+
+  .brand img{
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .brand::before{
+    content: "Aviruchi";
+    grid-column: 2;
+    grid-row: 1;
+    font-family: "Playfair Display", serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .brand::after{
+    content: "Authentic flavours straight from home";
+    grid-column: 2;
+    grid-row: 2;
+    font-family: "Playfair Display", serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  /* Row 2: nav links full width under the brand */
   .nav-links{
     order: 2;
-    flex: 1;
+    flex: 0 0 100%;
+    width: 100%;
+    justify-content: flex-start;
   }
 
-  /* Move search under the links row */
+  /* Row 3: search bar full width under the links */
   .nav-search{
     order: 3;
-    width: 100%;
     flex: 0 0 100%;
+    width: 100%;
+    max-width: none;
     margin-left: 0;
   }
 }
