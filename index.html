@@ -10,102 +10,6 @@
 
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
-
-  <!-- HOME-ONLY add-ons (no other files changed) -->
-  <style>
-    /* -------- Home hero image gradient "tab" -------- */
-    body.page-home .hero-media{
-      position: relative;
-      border-radius: 18px;
-      overflow: hidden;
-      outline: 1px solid var(--line);
-      background: #f3efe9;
-      isolation: isolate;
-    }
-
-    body.page-home .hero-media::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:
-        radial-gradient(1200px 600px at 20% 20%, rgba(231,176,122,.35), transparent 55%),
-        linear-gradient(135deg, rgba(191,123,48,.45), rgba(183,28,28,.18));
-      mix-blend-mode: multiply;
-      opacity: .85;
-    }
-
-    body.page-home .hero-media::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background: linear-gradient(180deg, rgba(0,0,0,.18), transparent 38%, rgba(0,0,0,.10));
-      z-index: 1;
-      opacity: .55;
-    }
-
-    body.page-home .hero-media img{
-      position: relative;
-      z-index: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform-origin: center;
-      animation: homeKenBurns 14s ease-in-out infinite alternate;
-    }
-
-    @keyframes homeKenBurns{
-      from { transform: scale(1.02) translateY(0px); filter: saturate(1.05) contrast(1.02); }
-      to   { transform: scale(1.08) translateY(-6px); filter: saturate(1.18) contrast(1.05); }
-    }
-
-    /* -------- Subtle festive "Indian" overlay (Home only) -------- */
-    body.page-home::before{
-      content:"";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.22;
-      background:
-        radial-gradient(circle at 12% 18%, rgba(191,123,48,0.22) 0 2px, transparent 3px) 0 0/44px 44px,
-        radial-gradient(circle at 88% 62%, rgba(183,28,28,0.18) 0 2px, transparent 3px) 0 0/56px 56px,
-        radial-gradient(circle at 52% 12%, rgba(231,176,122,0.18) 0 2px, transparent 3px) 0 0/64px 64px;
-    }
-
-    /* Ensure page content sits above overlay */
-    body.page-home header,
-    body.page-home main,
-    body.page-home footer{
-      position: relative;
-      z-index: 1;
-    }
-
-    /* -------- Load/scroll reveal animations (Home only) -------- */
-    .indian-reveal{
-      opacity: 0;
-      transform: translateY(16px);
-      filter: blur(1.5px);
-      transition: opacity .65s ease, transform .65s ease, filter .65s ease;
-      will-change: opacity, transform, filter;
-    }
-
-    .indian-reveal.is-visible{
-      opacity: 1;
-      transform: none;
-      filter: none;
-    }
-
-    /* A tiny “float” for cards once revealed */
-    .indian-reveal.floaty.is-visible{
-      animation: floaty 6.5s ease-in-out infinite;
-    }
-    @keyframes floaty{
-      0%,100%{ transform: translateY(0px); }
-      50%{ transform: translateY(-6px); }
-    }
-  </style>
 </head>
 
 <body class="page-home">
@@ -114,15 +18,16 @@
       <a class="brand" href="index.html" aria-label="Aviruchi home">
         <img src="assets/logo-brown.png" alt="Aviruchi logo">
       </a>
-      <a href="contact.html">Contact</a>
 
+      
 
       <nav class="nav-links" aria-label="Primary">
         <a href="index.html">Home</a>
         <a href="products.html">Products</a>
         <a href="about.html">About</a>
         <a href="basket.html">Basket <span class="cart-count">0</span></a>
-        <a href="https://wa.me/447344269839" target="_blank" rel="noopener noreferrer">Whatsapp</a>
+        <a href="contact.html">Contact</a>
+
       </nav>
 
       <form id="navSearchForm" class="nav-search" role="search">
@@ -133,25 +38,24 @@
   </header>
 
   <main class="container">
-    <section class="card hero indian-reveal">
+    <section class="card hero">
       <div>
         <h1>Authentic flavours straight from home</h1>
         <p>Homemade sweets, snacks, pickles, podis and more — crafted with tradition and delivered with care.</p>
         <p>Use the search bar above to find items instantly.</p>
       </div>
-
       <div class="hero-media">
         <img src="assets/hero-behind-scenes.jpeg" alt="Aviruchi behind the scenes">
       </div>
     </section>
 
-    <div class="section-head indian-reveal">
+    <div class="section-head">
       <h2>Popular picks</h2>
       <div class="small">Quick links to favourites.</div>
     </div>
 
     <div class="picks-grid">
-      <article class="card pick-card indian-reveal floaty">
+      <article class="card pick-card">
         <div class="pick-img"></div>
         <div class="pick-body">
           <div class="pick-title">Kaju Katli</div>
@@ -160,7 +64,7 @@
         </div>
       </article>
 
-      <article class="card pick-card indian-reveal floaty">
+      <article class="card pick-card">
         <div class="pick-img"></div>
         <div class="pick-body">
           <div class="pick-title">Mixture</div>
@@ -169,7 +73,7 @@
         </div>
       </article>
 
-      <article class="card pick-card indian-reveal floaty">
+      <article class="card pick-card">
         <div class="pick-img"></div>
         <div class="pick-body">
           <div class="pick-title">Gongura Pickle</div>
@@ -178,7 +82,7 @@
         </div>
       </article>
 
-      <article class="card pick-card indian-reveal floaty">
+      <article class="card pick-card">
         <div class="pick-img"></div>
         <div class="pick-body">
           <div class="pick-title">Idly Spice Powder</div>
@@ -190,32 +94,5 @@
   </main>
 
   <footer>© 2025 Aviruchi</footer>
-
-  <!-- HOME-ONLY reveal logic -->
-  <script>
-    (function () {
-      const els = Array.from(document.querySelectorAll(".indian-reveal"));
-      if (!els.length) return;
-
-      // Always reveal the first hero quickly on load
-      window.addEventListener("load", () => {
-        const hero = document.querySelector(".hero.indian-reveal");
-        if (hero) hero.classList.add("is-visible");
-      });
-
-      if (!("IntersectionObserver" in window)) {
-        els.forEach(el => el.classList.add("is-visible"));
-        return;
-      }
-
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("is-visible");
-        });
-      }, { threshold: 0.12 });
-
-      els.forEach(el => obs.observe(el));
-    })();
-  </script>
 </body>
 </html>
