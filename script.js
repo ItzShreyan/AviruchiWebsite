@@ -264,14 +264,85 @@ function renderCheckoutPage() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    // Demo checkout: clear basket
-    localStorage.removeItem(BASKET_KEY);
-    sessionStorage.removeItem(CHECKOUT_GATE_KEY);
-    updateBasketBadges();
-    alert("Order placed! (Demo)");
-    location.href = "index.html";
+
+    const WA_NUMBER = "447344269839"; // no +, no spaces
+
+    const name = (qs("#name")?.value || "").trim();
+    const phone = (qs("#phone")?.value || "").trim();
+    const email = (qs("#email")?.value || "").trim();
+    const address = (qs("#address")?.value || "").trim();
+    const postcode = (qs("#postcode")?.value || "").trim();
+
+    const lines = basketLinesDetailed();
+    const t = basketTotals();
+
+    const orderSummary = lines
+      .map((l) => {
+        const packText = l.packLabel ? ` (${l.packLabel})` : "";
+        return `${l.qty} x ${l.name}${packText} - £${money(l.lineTotal)}`;
+      })
+      .join("\n");
+
+    const msg =
+`Hello! Another order from
+(${name})
+(${phone})
+(${email})
+Order:
+(${orderSummary})
+(£${money(t.total)})
+Address is (${address})
+(${postcode})`;
+
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+    // Open WhatsApp (new tab)
+    window.open(url, "_blank", "noopener,noreferrer");
+
+    // Optional: keep basket until they actually send in WhatsApp (so DO NOTHING else)
   });
 }
+function setupRevealAnimations() {
+  // Add reveal class automatically (so you don't have to edit every HTML file)
+  const candidates = [
+    ...document.querySelectorAll("main .card"),
+    ...document.querySelectorAll("main .section-head"),
+    ...document.querySelectorAll("main .picks-grid > article"),
+    ...document.querySelectorAll("main .row > section, main .row > aside"),
+  ];
+
+  const els = [...new Set(candidates)].filter(Boolean);
+  if (!els.length) return;
+
+  els.forEach((el) => el.classList.add("reveal"));
+
+  const show = (el) => el.classList.add("is-visible");
+
+  // Reveal the first items instantly on load (nice entrance)
+  requestAnimationFrame(() => {
+    els.slice(0, 2).forEach(show);
+  });
+
+  if (!("IntersectionObserver" in window)) {
+    els.forEach(show);
+    return;
+  }
+
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          show(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  els.forEach((el) => obs.observe(el));
+}
+
 
 /* -----------------------------
    INIT
@@ -279,6 +350,7 @@ function renderCheckoutPage() {
 function init() {
   setupNav();
   setupSearchRedirects();
+  setupRevealAnimations();
 
   updateBasketBadges();
   renderBasketPage();
@@ -289,4 +361,5 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => safe(init));
 } else {
   safe(init);
+  
 }

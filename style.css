@@ -329,3 +329,161 @@ footer{
   color:#8a7e77;
   font-size:13px;
 }
+/* ================================
+   HOME HERO "TAB" GRADIENT + IMAGE OVERLAY
+   (Matches the warm gradient look)
+================================ */
+
+/* Give the whole hero card a soft saffron/cream gradient */
+.page-home .card.hero{
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(900px 420px at 12% 12%, rgba(231,176,122,0.26), transparent 60%),
+    linear-gradient(135deg, rgba(255,255,255,0.95), rgba(231,176,122,0.16));
+}
+
+/* Decorative subtle pattern on the hero card */
+.page-home .card.hero::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  pointer-events:none;
+  opacity:0.22;
+  background:
+    radial-gradient(circle at 18% 28%, rgba(191,123,48,0.20) 0 2px, transparent 3px) 0 0/44px 44px,
+    radial-gradient(circle at 72% 64%, rgba(183,28,28,0.16) 0 2px, transparent 3px) 0 0/56px 56px;
+}
+
+.page-home .card.hero > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* Gradient overlay ON the image panel (the “tab” look) */
+.page-home .hero-media{
+  position: relative;
+  isolation: isolate;
+}
+
+.page-home .hero-media::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(1200px 600px at 20% 20%, rgba(231,176,122,.35), transparent 55%),
+    linear-gradient(135deg, rgba(191,123,48,.45), rgba(183,28,28,.18));
+  mix-blend-mode: multiply;
+  opacity: .85;
+}
+
+.page-home .hero-media::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: linear-gradient(180deg, rgba(0,0,0,.16), transparent 40%, rgba(0,0,0,.10));
+  opacity: .55;
+  z-index: 1;
+}
+
+/* Subtle motion on the hero image */
+.page-home .hero-media img{
+  transform-origin: center;
+  animation: homeKenBurns 14s ease-in-out infinite alternate;
+}
+
+@keyframes homeKenBurns{
+  from { transform: scale(1.02) translateY(0px); filter: saturate(1.05) contrast(1.02); }
+  to   { transform: scale(1.08) translateY(-6px); filter: saturate(1.18) contrast(1.05); }
+}
+/* ================================
+   GLOBAL REVEAL ANIMATION (all pages)
+================================ */
+.reveal{
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(1.5px);
+  transition: opacity .65s ease, transform .65s ease, filter .65s ease;
+  will-change: opacity, transform, filter;
+}
+
+.reveal.is-visible{
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Respect accessibility */
+@media (prefers-reduced-motion: reduce){
+  .reveal{
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+.site-footer {
+  position: relative;
+  padding: 40px 20px 80px;
+  background-color: #f8f8f8;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+}
+
+.whatsapp-float {
+    width: 60px;
+    height: 60px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    overflow: visible;
+}
+
+/* Radar pulse */
+.whatsapp-float::after {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid rgba(37, 211, 102, 0.6);
+    animation: radarPulse 2.2s infinite ease-out;
+    transform: scale(1);
+    opacity: 1;
+}
+
+@keyframes radarPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+    70% {
+        transform: scale(2.4);
+        opacity: 0.2;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+.whatsapp-float img {
+    width: 35px;
+    height: 35px;
+}
+.whatsapp-wrapper {
+    position: fixed !important;
+    bottom: 60px !important; /* ← was 20px, now moved up */
+    right: 20px !important;
+    z-index: 999999 !important;
+    pointer-events: auto;
+}
+
+
