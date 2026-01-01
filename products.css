@@ -849,3 +849,91 @@ p {
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
+.site-footer {
+  position: relative;
+  padding: 40px 20px 80px;
+  background-color: #f8f8f8;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+}
+
+.whatsapp-float {
+    width: 60px;
+    height: 60px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    overflow: visible;
+}
+
+/* Radar pulse */
+.whatsapp-float::after {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid rgba(37, 211, 102, 0.6);
+    animation: radarPulse 2.2s infinite ease-out;
+    transform: scale(1);
+    opacity: 1;
+}
+
+@keyframes radarPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+    70% {
+        transform: scale(2.4);
+        opacity: 0.2;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+.whatsapp-float img {
+    width: 35px;
+    height: 35px;
+}
+.whatsapp-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+.whatsapp-wrapper {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    z-index: 999999 !important;
+    pointer-events: auto;
+}
+
+.whatsapp-float {
+    width: 60px;
+    height: 60px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.whatsapp-wrapper {
+    position: fixed !important;
+    bottom: 60px !important; /* ← was 20px, now moved up */
+    right: 20px !important;
+    z-index: 999999 !important;
+    pointer-events: auto;
+}
+
