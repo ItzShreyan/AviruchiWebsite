@@ -971,3 +971,9 @@ p {
   font-weight: 700;
   border-radius: 6px;
 }
+/* Remove products page banner image on mobile */
+@media (max-width: 600px) {
+  .products-hero {
+    display: none !important;
+  }
+}
