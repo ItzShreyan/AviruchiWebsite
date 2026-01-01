@@ -73,17 +73,16 @@ main{ padding:28px 0 56px; }
   min-width: fit-content;
 }
 
-.brand img {
-    width: 85px;  /* Was 52px */
-    height: 85px; /* Was 52px */
-    object-fit: contain;
+.brand img{
+  width:52px;
+  height:52px;
+  object-fit:contain;
 }
 
-.page-home .brand img {
-    width: 110px;  /* Was 64px */
-    height: 110px; /* Was 64px */
+.page-home .brand img{
+  width:64px;
+  height:64px;
 }
-
 
 .nav-links{
   display:flex;
@@ -425,7 +424,6 @@ footer{
     filter: none !important;
   }
 }
-<<<<<<< HEAD
 @media (max-width: 600px) {
   .brand{
     display: grid;
@@ -553,7 +551,6 @@ footer{
   opacity:.35;
   cursor:not-allowed;
 }
-=======
 .site-footer {
   position: relative;
   padding: 40px 20px 80px;
@@ -617,4 +614,3 @@ footer{
 }
 
 
->>>>>>> origin/main
