@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About | Aviruchi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./style.css">
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.querySelector(".menu-btn");
+      const links = document.querySelector(".nav-links");
+      if (btn && links) btn.addEventListener("click", () => links.classList.toggle("open"));
+    });
+  </script>
+</head>
+
+<body>
+ <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html" aria-label="Aviruchi home">
+        <img src="assets/logo-brown.png" alt="Aviruchi logo">
+      </a>
+
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="basket.html">Basket <span class="cart-count">0</span></a>
+        <a href="contact.html">Contact us</a>
+      </nav>
+
+      <form id="navSearchForm" class="nav-search" role="search">
+        <input id="navSearchInput" type="search" placeholder="Search products..." />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </header>
+  
+<main class="container">
+  <section class="card reveal" style="padding:18px;max-width:920px;">
+    <h2>Email Address</h2>
+
+    <p>
+  aviruchifoods@gmail.com
+    </p>
+
+    <h2 style="margin-top:18px;">Phone Number</h2>
+
+    <p>+44 7344 269839 or +44 7545 823354</p>
+
+<h2 style="margin-top:18px;">Instagram</h2>
+<p>
+  <a href="https://www.instagram.com/aviruchi_foods/" target="_blank" style="color:#E1306C; text-decoration:none;">
+    Have a look at our Instagram
+  </a>
+</p>
+
+
+<h2 style="margin-top:18px;">WhatsApp</h2>
+<p>
+  <a href="https://wa.me/447344269839" target="_blank" style="color:green; text-decoration:none;">
+    Chat with us on WhatsApp
+  </a>
+</p>
+<h2>Business Address</h2>
+<p>133 Vale Road, Chesham, Buckinghamshire, HP5 3HW, United Kingdom</p>
+
+  </section>
+
+</main>
+
+  <footer>&copy; 2025 Aviruchi UK</footer>
+  <script src="script.js"></script>
+</body>
+</html>
