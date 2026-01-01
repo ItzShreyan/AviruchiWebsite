@@ -94,5 +94,44 @@
   </main>
 
   <footer>© 2025 Aviruchi</footer>
+
+  <!-- HOME-ONLY reveal logic -->
+  <script>
+    (function () {
+      const els = Array.from(document.querySelectorAll(".indian-reveal"));
+      if (!els.length) return;
+
+      // Always reveal the first hero quickly on load
+      window.addEventListener("load", () => {
+        const hero = document.querySelector(".hero.indian-reveal");
+        if (hero) hero.classList.add("is-visible");
+      });
+
+      if (!("IntersectionObserver" in window)) {
+        els.forEach(el => el.classList.add("is-visible"));
+        return;
+      }
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("is-visible");
+        });
+      }, { threshold: 0.12 });
+
+      els.forEach(el => obs.observe(el));
+    })();
+  </script>
+  <!-- Your page content -->
+
+<div id="footer-placeholder"></div>
+
+<!-- Floating WhatsApp radar button -->
+<div class="whatsapp-wrapper">
+  <a href="https://wa.me/447344269839" class="whatsapp-float" target="_blank" rel="noopener">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+  </a>
+</div>
+
+
 </body>
 </html>
