@@ -24,23 +24,23 @@ const PRODUCTS = [
       { label: "1kg", price: 16.00 }
     ]
   },
-  {
-    id: "pickles_chintakaya",
-    name: "Chintakaya",
-    category: "Pickles",
-    subCategory: "Veg",
-    spice: "hot",
-    rating: 4.6,
-    reviews: 80,
-    unit: "250g+",
-    notes: "Pre order required",
-    packSizes: [
-      { label: "250g", price: 4.50 },
-      { label: "500g", price: 8.50 },
-      { label: "1kg", price: 16.00 }
-    ]
-  },
-  {
+{
+  id: "pickles_chintakaya",
+  name: "Chintakaya",
+  category: "Pickles",
+  subCategory: "Veg",
+  spice: "hot",
+  rating: 4.6,
+  reviews: 80,
+  unit: "250g+",
+  notes: `<span class="preorder-badge">Pre‑order required</span>`,
+  packSizes: [
+    { label: "250g", price: 4.50 },
+    { label: "500g", price: 8.50 },
+    { label: "1kg", price: 16.00 }
+  ]
+},
+ {
     id: "pickles_amla",
     name: "Amla Pickle",
     category: "Pickles",
@@ -432,23 +432,24 @@ const PRODUCTS = [
       { label: "1kg", price: 15.00 }
     ]
   },
-  {
-    id: "snacks_mixture",
-    name: "Mixture",
-    category: "Snacks",
-    subCategory: "Hot Snacks",
-    spice: "medium",
-    rating: 4.8,
-    reviews: 200,
-    unit: "125/150g+",
-    notes: "Out of stock",
-    packSizes: [
-      { label: "125g", price: 2.50 },
-      { label: "250g", price: 4.00 },
-      { label: "500g", price: 7.50 },
-      { label: "1kg", price: 15.00 }
-    ]
-  },
+ {
+  id: "snacks_mixture",
+  name: "Mixture",
+  category: "Snacks",
+  subCategory: "Hot Snacks",
+  spice: "medium",
+  rating: 4.8,
+  reviews: 200,
+  unit: "125/150g+",
+  notes: `<span class="outofstock-badge">Out of Stock</span>`,
+  packSizes: [
+    { label: "125g", price: 2.50 },
+    { label: "250g", price: 4.00 },
+    { label: "500g", price: 7.50 },
+    { label: "1kg", price: 15.00 }
+  ]
+},
+
   {
     id: "snacks_chegodi",
     name: "Chegodi",
@@ -684,22 +685,23 @@ const PRODUCTS = [
       { label: "1kg", price: 18.00 }
     ]
   },
-  {
-    id: "sweets_kaju_katli",
-    name: "Kaju Katli",
-    category: "Sweets",
-    subCategory: "Cashew",
-    spice: "mild",
-    rating: 4.9,
-    reviews: 160,
-    unit: "250g+",
-    notes: "Pre-order only",
-    packSizes: [
-      { label: "250g", price: 4.50 },
-      { label: "500g", price: 9.00 },
-      { label: "1kg", price: 17.50 }
+{
+  id: "sweets_kaju_katli",
+  name: "Kaju Katli",
+  category: "Sweets",
+  subCategory: "Cashew",
+  spice: "mild",
+  rating: 4.9,
+  reviews: 160,
+  unit: "250g+",
+  notes: `<span class="preorder-badge">Pre‑order only</span>`,
+  packSizes: [
+    { label: "250g", price: 4.50 },
+    { label: "500g", price: 9.00 },
+    { label: "1kg", price: 17.50 }
     ]
-  },
+},
+
   {
     id: "sweets_dryfruit_laddu",
     name: "Dry Fruit Laddu",
@@ -812,22 +814,23 @@ const PRODUCTS = [
       { label: "1kg", price: 18.50 }
     ]
   },
-  {
-    id: "sweets_palakova",
-    name: "Pala Kova",
-    category: "Sweets",
-    subCategory: "Milk",
-    spice: "mild",
-    rating: 4.8,
-    reviews: 135,
-    unit: "250g+",
-    notes: "Pre-order only",
-    packSizes: [
-      { label: "250g", price: 5.00 },
-      { label: "500g", price: 9.50 },
-      { label: "1kg", price: 18.00 }
-    ]
-  },
+{
+  id: "sweets_palakova",
+  name: "Pala Kova",
+  category: "Sweets",
+  subCategory: "Milk",
+  spice: "mild",
+  rating: 4.8,
+  reviews: 135,
+  unit: "250g+",
+  notes: `<span class="preorder-badge">Pre‑order only</span>`,
+  packSizes: [
+    { label: "250g", price: 5.00 },
+    { label: "500g", price: 9.50 },
+    { label: "1kg", price: 18.00 }
+  ]
+},
+
   // ---------------------------------------------------------
   // PODIS / SPICE POWDERS
   // ---------------------------------------------------------
@@ -1055,22 +1058,23 @@ const PRODUCTS = [
   // MIXES (RICE MIXES, MILLET MIXES, READY MIXES)
   // ---------------------------------------------------------
 
-  ,{
-    id: "mix_pulihora",
-    name: "Pulihora Mix (Tamarind Rice Mix)",
-    category: "Mixes",
-    subCategory: "Rice Mixes",
-    spice: "medium",
-    rating: 4.8,
-    reviews: 90,
-    unit: "250g+",
-    notes: "",
-    packSizes: [
-      { label: "250g", price: 3.50 },
-      { label: "500g", price: 6.50 },
-      { label: "1kg", price: 12.50 }
+,{
+  id: "mix_pulihora",
+  name: "Pulihora Mix (Tamarind Rice Mix)",
+  category: "Mixes",
+  subCategory: "Rice Mixes",
+  spice: "medium",
+  rating: 4.8,
+  reviews: 90,
+  unit: "250g+",
+  notes: `<span class="preorder-badge">Pre‑order required</span>`,
+  packSizes: [
+    { label: "250g", price: 3.50 },
+    { label: "500g", price: 6.50 },
+    { label: "1kg", price: 12.50 }
     ]
-  },
+},
+
   {
     id: "mix_tomato_rice",
     name: "Tomato Rice Mix",
@@ -1135,39 +1139,40 @@ const PRODUCTS = [
       { label: "1kg", price: 10.50 }
     ]
   },
-  {
-    id: "mix_pongal",
-    name: "Pongal Mix",
-    category: "Mixes",
-    subCategory: "Breakfast Mixes",
-    spice: "mild",
-    rating: 4.8,
-    reviews: 75,
-    unit: "250g+",
-    notes: "",
-    packSizes: [
-      { label: "250g", price: 3.00 },
-      { label: "500g", price: 5.50 },
-      { label: "1kg", price: 10.50 }
-    ]
-  },
-  {
-    id: "mix_millet_upma",
-    name: "Millet Upma Mix",
-    category: "Mixes",
-    subCategory: "Millet Mixes",
-    spice: "mild",
-    rating: 4.7,
-    reviews: 65,
-    unit: "250g+",
-    notes: "",
-    packSizes: [
-      { label: "250g", price: 3.50 },
-      { label: "500g", price: 6.50 },
-      { label: "1kg", price: 12.00 }
-    ]
-  },
-  {
+{
+  id: "mix_pongal",
+  name: "Pongal Mix",
+  category: "Mixes",
+  subCategory: "Breakfast Mixes",
+  spice: "mild",
+  rating: 4.8,
+  reviews: 75,
+  unit: "250g+",
+  notes: `<span class="preorder-badge">Pre‑order required</span>`,
+  packSizes: [
+    { label: "250g", price: 3.00 },
+    { label: "500g", price: 5.50 },
+    { label: "1kg", price: 10.50 }
+  ]
+},
+
+{
+  id: "mix_millet_upma",
+  name: "Millet Upma Mix",
+  category: "Mixes",
+  subCategory: "Millet Mixes",
+  spice: "mild",
+  rating: 4.7,
+  reviews: 65,
+  unit: "250g+",
+  notes: `<span class="outofstock-badge">Out of Stock</span>`,
+  packSizes: [
+    { label: "250g", price: 3.50 },
+    { label: "500g", price: 6.50 },
+    { label: "1kg", price: 12.00 }
+  ]
+},
+ {
     id: "mix_millet_pongal",
     name: "Millet Pongal Mix",
     category: "Mixes",
@@ -1457,22 +1462,23 @@ const PRODUCTS = [
   // READY PASTES (COOKING BASES)
   // ---------------------------------------------------------
 
-  {
-    id: "paste_ginger_garlic",
-    name: "Ginger Garlic Paste",
-    category: "Ready Pastes",
-    subCategory: "Cooking Bases",
-    spice: "mild",
-    rating: 4.9,
-    reviews: 150,
-    unit: "250g+",
-    notes: "",
-    packSizes: [
-      { label: "250g", price: 3.00 },
-      { label: "500g", price: 5.50 },
-      { label: "1kg", price: 10.50 }
-    ]
-  },
+{
+  id: "paste_ginger_garlic",
+  name: "Ginger Garlic Paste",
+  category: "Ready Pastes",
+  subCategory: "Cooking Bases",
+  spice: "mild",
+  rating: 4.9,
+  reviews: 150,
+  unit: "250g+",
+  notes: `<span class="preorder-badge">Pre‑order required</span>`,
+  packSizes: [
+    { label: "250g", price: 3.00 },
+    { label: "500g", price: 5.50 },
+    { label: "1kg", price: 10.50 }
+  ]
+},
+
   {
     id: "paste_ginger",
     name: "Ginger Paste",
