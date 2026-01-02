@@ -711,3 +711,29 @@ h2 {
 #reviewForm textarea {
   font-size: 0.85rem; /* smaller typing size */
 }
+/* Mobile fixes for reviews page */
+@media (max-width: 600px) {
+  body.page-reviews {
+    background-attachment: scroll;              /* avoid fixed zoom issues */
+  }
+
+  .page-reviews .container {
+    max-width: 100%;
+    padding: 0 14px;                            /* softer side padding */
+  }
+
+  .page-reviews main {
+    padding: 18px 0 32px;
+  }
+
+  .page-reviews h1 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .page-reviews .review {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+  }
+}
