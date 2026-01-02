@@ -977,3 +977,15 @@ p {
     display: none !important;
   }
 }
+.ph-search {
+  margin-bottom: 10px;
+}
+
+.ph-search input {
+  width: 100%;
+  max-width: 320px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md, 12px);
+  border: 1px solid var(--line, #e5ddd2);
+  font-size: 0.95rem;
+}
