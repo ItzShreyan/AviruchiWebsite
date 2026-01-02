@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap');
 :root{
   --ink:#2B2320;
   --muted:#6E645F;
@@ -665,4 +666,48 @@ footer{
     pointer-events: auto;
 }
 
+#reviewForm button {
+  background-color: #6b4f3b; /* warm brown tone */
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
 
+#reviewForm button:hover {
+  background-color: #8c6a50;
+  transform: translateY(-2px);
+}
+
+/* Main review headings */
+h1,
+h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Customer names */
+.review h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Submit button text */
+#reviewForm button {
+  font-family: 'Playfair Display', serif;
+}
+/* Change the font while typing */
+#reviewForm input,
+#reviewForm select,
+#reviewForm textarea {
+  font-family: 'Arial', sans-serif; /* or any font you want */
+  font-size: 1rem;
+}
+/* Make the typing font smaller */
+#reviewForm input,
+#reviewForm select,
+#reviewForm textarea {
+  font-size: 0.85rem; /* smaller typing size */
+}
