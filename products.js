@@ -10,6 +10,7 @@ const PRODUCTS = [
   ...(window.papadums || []),
   ...(window.podis || []),
   ...(window.mixes || []),
+  ...(window.pastes || []),
   ...(window.other || [])
 ];
  // <-- VERY IMPORTANT: Do NOT delete this bracket.
