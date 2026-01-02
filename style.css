@@ -425,6 +425,185 @@ footer{
     filter: none !important;
   }
 }
+@media (max-width: 600px) {
+  .brand{
+    display: grid;
+    grid-template-columns: auto 1fr; /* auto lets logo keep its size */
+    grid-template-rows: auto auto;
+    column-gap: 16px;               /* more to the right (was 10px) */
+    align-items: center;
+  }
+
+  /* Logo left, spans both rows (do NOT set width/height here) */
+  .brand img{
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .brand::before{
+    content: "Aviruchi";
+    grid-column: 1.0;
+    grid-row: 1;
+    font-family: "Playfair Display", serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .brand::after{
+    content: "Authentic flavours straight from home";
+    grid-column: 1.5;
+    grid-row: 2;
+    font-family: "Playfair Display", serif;
+    font-size: 1.0rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    margin: 0;
+  }
+}
+@media (max-width: 600px) {
+
+  /* Force the navbar into 3 rows:
+     1) brand (logo + text)
+     2) links
+     3) search
+  */
+  .navbar{
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* Row 1: brand takes full width */
+  .brand{
+    order: 1;
+    flex: 0 0 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 16px;
+    align-items: center;
+  }
+
+  .brand img{
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .brand::before{
+    content: "Aviruchi";
+    grid-column: 2;
+    grid-row: 1;
+    font-family: "Playfair Display", serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .brand::after{
+    content: "Authentic flavours straight from home";
+    grid-column: 2;
+    grid-row: 2;
+    font-family: "Playfair Display", serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  /* Row 2: nav links full width under the brand */
+  .nav-links{
+    order: 2;
+    flex: 0 0 100%;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  /* Row 3: search bar full width under the links */
+  .nav-search{
+    order: 3;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+  }
+}
+
+
+/* Instagram reels carousel (About page) */
+.ig-carousel{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  max-width:920px;
+  margin-top:10px;
+}
+
+.ig-viewport{
+  flex:1;
+  overflow:hidden;
+}
+
+.ig-track{
+  display:flex;
+  gap:16px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width:none;
+}
+
+.ig-track::-webkit-scrollbar{ display:none; }
+
+.ig-slide{
+  flex:0 0 calc((100% - 32px) / 3); /* 3 per view (2 gaps = 32px) */
+  scroll-snap-align:start;
+  display:flex;
+  justify-content:center;
+}
+
+/* Make embeds fit the slide width */
+.ig-slide .instagram-media{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+}
+
+/* Tablet: 2 per view */
+@media (max-width: 768px){
+  .ig-slide{ flex-basis: calc((100% - 16px) / 2); }
+}
+
+/* Mobile: 1 per view */
+@media (max-width: 480px){
+  .ig-slide{ flex-basis: 100%; }
+}
+
+.ig-btn{
+  border:none;
+  width:40px;
+  height:40px;
+  border-radius:999px;
+  background: var(--accent);
+  color:#fff;
+  font-size:22px;
+  font-weight:900;
+  cursor:pointer;
+  flex:0 0 auto;
+}
+
+.ig-btn:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
 .site-footer {
   position: relative;
   padding: 40px 20px 80px;

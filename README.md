@@ -1,146 +1,115 @@
 # Aviruchi Website
 Aviruchi Website Project
 
+Start Date: 28/12/25
+
+Status: Currently in Development
+
 Current State: Beta
-Current Version: 2.0
 
-## 🌟 **What Changed in Aviruchi Website BETA VERSION 2.0**
+Current Version: 3.0
 
-### 🏠 **Hero Section**
+## 🌶️ **Aviruchi Website BETA 3.0 — A Smarter Faster and More Seamless Shopping Experience**
 
-A **clean modern hero area** featuring
-**Brand logo**
-**Tagline:** **Authentic food, straight from home!!!**
-**Large featured image**
-**Glass style card layout** for a premium and modern feel
+### 🚀 **What’s New in Aviruchi Website — BETA 3.0**
 
----
-
-### 🔍 **Search Section**
-
-A **dedicated Search area** placed just below the hero
-**Global search bar** that redirects to the **Products page**
-Search results **auto filter instantly** based on the query
+This release delivers a **complete refresh of the shopping journey** from discovery to ordering
+**Updated Home visuals**
+**Redesigned Products catalogue with filtering and sorting**
+**New Products page banner**
+**Redefined mobile experience**
+**Smoother basket and checkout flow**
+**WhatsApp integrated as the primary business contact and ordering channel**
 
 ---
 
-### 🧭 **Category Navigation**
+### 🏠 **Home Page — Refreshed UI and Motion**
 
-Scrollable **category chips** for quick access
-**Snacks**
-**Sweets**
-**Podis and Spice Powders**
-**Pickles**
-**Papadums**
-**Mixes**
-**Other**
+The Home page now features an **upgraded hero design** with a
+**Warm gradient tab style layout**
+**Subtle patterned overlay**
+**Gentle Ken Burns animation on the hero image**
+All combined to create a **more premium and welcoming feel**
 
-Tapping a category **jumps directly** to the matching section on the Products page
+**Popular Picks** continues to sit front and centre
+Quick access links now **jump users straight into Products search results** for faster discovery
 
 ---
 
-### 🔥 **Popular Picks**
+### 🛒 **Products Page — Redesigned Catalogue UI**
 
-A **featured grid** highlighting top items
-Each product card includes
-**Pack size selector**
+The Products page has been fully reworked into a **modern store style layout** including
+**New visual banner at the top of the Products page** to highlight browsing and discovery
+**Top header bar with controls**
+**Sorting options**
+**Sticky Shop by Category sidebar**
+**Results information bar**
+**Responsive product grid** that adapts across devices
+
+Each product card now supports
+**Pack size selection**
 **Quantity increase and decrease controls**
-**Add to basket button** with instant feedback
+**Visible spice level indicator and rating**
+**Fast Add button optimised for quick shopping**
 
 ---
 
-## 🛍️ **Products Page**
+### 📱 **Mobile Experience — Fully Redefined**
 
-### ✨ **Layout and Navigation**
+The mobile experience has been **rethought and refined end to end**
+**Cleaner layouts and spacing for small screens**
+**Improved touch targets for faster adding and browsing**
+**Optimised category navigation and filters**
+**Smoother scrolling and performance across devices**
 
-Minimal and modern design focused on usability
-**Search bar at the top**
-**Category chips inside the page** for fast section jumping
-
----
-
-### 🎉 **Highlighted Sections**
-
-**Festive Picks**
-Curated recommendations for celebrations
-
-**Best Sellers**
-Top selling items marked using product flags
+The result is a **faster more intuitive shopping experience on phones and tablets**
 
 ---
 
-### 📦 **All Products Display**
+### 🔍 **Search Filters and Navigation**
 
-Products grouped neatly by **category sections**
-Each product card shows
-**Placeholder product image**
-**Category tag**
-**Pack size dropdown** such as 250g 500g 1kg marked **TBD** until final data
-**Quantity selector**
-**Add to basket button** with **Added ✓** confirmation
+The top navigation now includes a **global search bar** available across the site
+All searches redirect into the Products page using
+**products.html?search=…**
+allowing users to find items instantly from anywhere
 
----
-
-## 🛒 **Cart Basket and Checkout Flow**
-
-### 🧺 **Basket Behaviour**
-
-Cart data saved using **localStorage**
-Items remain in the basket while browsing
+Within the Products page
+Search is fully **integrated into the browsing experience**
+**Category filtering**
+**Clear filters option**
+**Multiple sort modes** including **featured price and name**
 
 ---
 
-### 📋 **Basket Page**
+### 🧺 **Basket and Checkout Experience**
 
-Displays every selected item with
-**Pack size label**
-**Quantity controls**
-**Line item totals**
-Order summary including
-**Total items**
-**Subtotal**
-**Delivery cost**
-**Final total**
-**Order Now** button that opens checkout
+Basket items totals and delivery fee calculations are handled by a **shared site script**
+Data is stored consistently under **aviruchibasket**
+A **live basket badge** updates across all headers in real time
+
+Checkout now uses a **clean two column layout**
+**Customer details form** on one side
+**Order summary** on the other
+Direct access to checkout is **restricted unless the user arrives from the basket flow**
 
 ---
 
-### 🧾 **Checkout Page**
+### 📲 **WhatsApp — Contact and Ordering**
 
-Simple **delivery details form**
-Full **order summary preview**
-Placing an order **clears the basket**
-Demo only with **no real payment processing**
+A new **WhatsApp contact option** links directly to the business number
+**+44 7344 269839**
+allowing customers to reach you instantly
 
----
-
-## 🎨 **Design and Behaviour Details**
-
-### 🧷 **Header**
-
-Sticky header across all pages
-Contains
-**Logo**
-**Navigation links**
-**Basket icon with item count**
+Clicking **Place Order** sends a **formatted order message** with
+**Customer details**
+**Order summary**
+**Total cost**
+**Delivery address and postcode**
+directly into WhatsApp for **confirmation and fulfilment**
 
 ---
 
-### 📱 **Responsive Design**
+### 🌐 **Beta Access**
 
-Optimised for desktop tablet and mobile
-Grids adapt automatically
-Mobile friendly **hamburger menu**
-
----
-
-### 🧩 **Product Data Structure**
-
-All items stored in **one PRODUCTS array**
-Products grouped into the **seven categories**
-Each item supports flags
-**Festive pick**
-**Best seller**
-**New arrival**
-
-This structure allows **easy tuning of recommendations** and future expansion
+The **BETA 3.0 version** of the Aviruchi website can now be accessed at
+**[https://aviruchi.netlify.app/](https://aviruchi.netlify.app/)**

@@ -283,16 +283,17 @@ function renderCheckoutPage() {
       })
       .join("\n");
 
-    const msg =
-`Hello! Another order from
-(${name})
-(${phone})
-(${email})
+    const msg = `Hello Another Order,
+Name: *${name}*
+Phone: *${phone}*
+Email: *${email}*
+Postcode: *${postcode}*
+Delivery Address: *${address}*
+
 Order:
-(${orderSummary})
-(£${money(t.total)})
-Address is (${address})
-(${postcode})`;
+${orderSummary}
+
+Total: *£${money(t.total)}*`;
 
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 
@@ -351,6 +352,7 @@ function init() {
   setupNav();
   setupSearchRedirects();
   setupRevealAnimations();
+  setupInstagramCarousel();
 
   updateBasketBadges();
   renderBasketPage();
@@ -363,3 +365,37 @@ if (document.readyState === "loading") {
   safe(init);
   
 }
+function setupInstagramCarousel(){
+  const carousel = document.querySelector(".ig-carousel");
+  if (!carousel) return;
+
+  const viewport = carousel.querySelector(".ig-viewport");
+  const track = carousel.querySelector(".ig-track");
+  const prev = carousel.querySelector(".ig-prev");
+  const next = carousel.querySelector(".ig-next");
+
+  const updateButtons = () => {
+    const max = track.scrollWidth - track.clientWidth - 2;
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft >= max;
+  };
+
+  const scrollByPage = (dir) => {
+    track.scrollBy({ left: dir * viewport.clientWidth, behavior: "smooth" });
+  };
+
+  prev.addEventListener("click", () => scrollByPage(-1));
+  next.addEventListener("click", () => scrollByPage(1));
+
+  track.addEventListener("scroll", () => requestAnimationFrame(updateButtons), { passive: true });
+  window.addEventListener("resize", updateButtons);
+
+  // Instagram embeds resize after load -> refresh buttons after a short delay too
+  window.addEventListener("load", () => {
+    setTimeout(updateButtons, 600);
+    setTimeout(updateButtons, 1600);
+  });
+
+  updateButtons();
+}
+
