@@ -22,8 +22,29 @@
 </div>
 
   <!-- SAME NAV UI AS REST OF SITE -->
-<div id="header"></div>
-<script src="header.js" defer></script>
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html" aria-label="Aviruchi home">
+        <img src="assets/logo-brown.png" alt="Aviruchi logo">
+      </a>
+
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="products.html" class="active">Products</a>
+        <a href="about.html">About</a>
+        <a href="basket.html" class="cart-link">Basket <span id="basket-count" class="cart-count">0</span></a>
+        <a href="contact.html">Contact us</a>
+      </nav>
+
+      <!-- Same look as other pages, but on Products it FILTERS (doesn't redirect) -->
+      <form id="navSearchForm" class="nav-search" role="search">
+        <input id="navSearchInput" type="search" placeholder="Search products..." />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </header>
+
   <main class="products-main" id="products-top">
     <div class="products-hero">
       <img src="assets/Products.png" alt="Aviruchi products banner">

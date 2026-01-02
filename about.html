@@ -20,9 +20,27 @@
 </head>
 
 <body>
- <!-- SAME NAV UI AS REST OF SITE -->
-<div id="header"></div>
-<script src="header.js" defer></script>
+ <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html" aria-label="Aviruchi home">
+        <img src="assets/logo-brown.png" alt="Aviruchi logo">
+      </a>
+
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="basket.html">Basket <span class="cart-count">0</span></a>
+        <a href="contact.html">Contact us</a>
+      </nav>
+
+      <form id="navSearchForm" class="nav-search" role="search">
+        <input id="navSearchInput" type="search" placeholder="Search products..." />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </header>
   
 <main class="container">
   <section class="card reveal" style="padding:18px;max-width:920px;">
