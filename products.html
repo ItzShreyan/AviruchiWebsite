@@ -14,7 +14,8 @@
   <link rel="stylesheet" href="products.css" />
 </head>
 
-<body>
+<body class="page-products">
+
   <div class="whatsapp-wrapper">
   <a href="https://wa.me/447344269839" class="whatsapp-float" target="_blank" rel="noopener">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
@@ -29,13 +30,17 @@
       </a>
 
 
-      <nav class="nav-links" aria-label="Primary">
-        <a href="index.html">Home</a>
-        <a href="products.html" class="active">Products</a>
-        <a href="about.html">About</a>
-        <a href="basket.html" class="cart-link">Basket <span id="basket-count" class="cart-count">0</span></a>
-        <a href="contact.html">Contact us</a>
-        <a href="reviews.html">Reviews</a>
+<nav class="nav-links" aria-label="Primary">
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact us</a>
+  <a href="reviews.html">Reviews</a>
+  <a href="basket.html" class="cart-link">
+    Basket <span class="cart-count">0</span>
+  </a>
+</nav>
+
       </nav>
 
       <!-- Same look as other pages, but on Products it FILTERS (doesn't redirect) -->
@@ -43,6 +48,7 @@
         <input id="navSearchInput" type="search" placeholder="Search products..." />
         <button type="submit">Search</button>
       </form>
+
     </div>
   </header>
 
@@ -90,15 +96,14 @@
         </ul>
       </aside>
 
-        <section class="products-content">
-          <!-- Products page search box -->
-          <div class="ph-search">
-            <input
-              id="search-input"
-              type="search"
-              placeholder="Search products on this page..."
-            />
-          </div>
+<section class="products-content">
+  <!-- Products page search box: keep input, can be visually hidden if you like -->
+  <div class="ph-search" style="display:none;">
+    <input id="search-input"
+           type="search"
+           placeholder="Search products on this page..." />
+  </div>
+
 
           <div class="results-bar">
 
@@ -124,7 +129,7 @@
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <p>&copy; 2025 Aviruchi UK — Authentic flavours straight from home</p>
+    <p>&copy; 2025 Aviruchi</p>
   </div>
   <script src="products/pickles.js"></script>
   <script src="products/snacks.js"></script>

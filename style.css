@@ -86,30 +86,40 @@ main{ padding:28px 0 56px; }
   height:64px;
 }
 
-.nav-links{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.nav-links a{
-  padding:8px 12px;
-  border-radius:999px;
-  font-weight:800;
-  color:#5b524c;
-  font-size:14px;
+/* Turn each nav link into a button */
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;          /* makes buttons a similar width */
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+  border: 1px solid var(--accent);
+  background: #ffffff;
+  color: var(--accent);
 }
 
-.nav-links a:hover{
-  background:rgba(191,123,48,0.12);
-  color:var(--ink);
+/* Hover state */
+.nav-links a:hover {
+  background: rgba(191, 123, 48, 0.12);
+  color: var(--accent);
 }
 
-.nav-links a.active{
-  background:var(--accent);
-  color:#fff;
+/* Filled button for active page (like “Sign in”) */
+.nav-links a.active {
+  background: var(--accent);
+  color: #ffffff;
 }
+
 
 .cart-count{
   margin-left:8px;
@@ -520,12 +530,21 @@ footer{
   }
 
   /* Row 2: nav links full width under the brand */
-  .nav-links{
-    order: 2;
-    flex: 0 0 100%;
-    width: 100%;
-    justify-content: flex-start;
-  }
+.nav-links{
+  order: 2;
+  flex: 0 0 100%;
+  width: 100%;
+  justify-content: center;
+  gap: 4px;              /* smaller space between buttons */
+}
+
+.nav-links a{
+  flex: 1 1 32%;         /* slightly wider, still ~3 per row */
+  min-width: 0;
+  text-align: center;
+}
+
+
 
   /* Row 3: search bar full width under the links */
   .nav-search{
@@ -736,5 +755,82 @@ h2 {
     margin-bottom: 16px;
     padding: 12px 14px;
     border-radius: 12px;
+  }
+}
+/* Contact section background */
+.contact-section {
+  background-color: #f5e9d7; /* beige */
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* White card */
+.contact-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  padding: 30px 30px 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Title */
+.contact-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 24px 0;
+}
+
+/* Rows */
+.contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+/* Icon wrapper */
+.contact-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG icons */
+.contact-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: #000; /* black icons */
+}
+
+/* Text */
+.contact-text h2 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 4px;
+}
+
+.contact-text p {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #333;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-card {
+    padding: 24px 18px;
+  }
+
+  .contact-title {
+    font-size: 1.6rem;
   }
 }
