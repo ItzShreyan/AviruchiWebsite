@@ -44,6 +44,7 @@
         <input id="navSearchInput" type="search" placeholder="Search products..." />
         <button type="submit">Search</button>
       </form>
+
     </div>
   </header>
 
@@ -91,15 +92,14 @@
         </ul>
       </aside>
 
-        <section class="products-content">
-          <!-- Products page search box -->
-          <div class="ph-search">
-            <input
-              id="search-input"
-              type="search"
-              placeholder="Search products on this page..."
-            />
-          </div>
+<section class="products-content">
+  <!-- Products page search box: keep input, can be visually hidden if you like -->
+  <div class="ph-search" style="display:none;">
+    <input id="search-input"
+           type="search"
+           placeholder="Search products on this page..." />
+  </div>
+
 
           <div class="results-bar">
 
