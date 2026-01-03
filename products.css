@@ -26,17 +26,7 @@
   box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-}
 
-body {
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: var(--ink);
-  background: var(--bg-cream);
-  line-height: 1.6;
-}
 
 /* -----------------------------------------------------------
    GLOBAL ELEMENTS
@@ -988,4 +978,18 @@ p {
   border-radius: var(--radius-md, 12px);
   border: 1px solid var(--line, #e5ddd2);
   font-size: 0.95rem;
+}
+body.page-products {
+  background: var(--bg-cream);
+}
+/* Don't touch global body/header here; only products layout */
+.products-main {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* Optional: products area cream background but keep global page background */
+.products-main {
+  background: transparent;
 }
