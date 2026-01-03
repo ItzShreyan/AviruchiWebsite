@@ -128,10 +128,27 @@ function setupSearchRedirects() {
     f.addEventListener("submit", (e) => {
       e.preventDefault();
       const q = (i.value || "").trim();
+      const isProductsPage = !!document.getElementById("products-grid");
+
+      // If we are already on products.html, filter instead of redirect
+      if (isProductsPage) {
+        const prodInput = document.getElementById("search-input");
+        if (prodInput) {
+          prodInput.value = q;
+          const ev = new Event("input", { bubbles: true });
+          prodInput.dispatchEvent(ev);
+        }
+        return;
+      }
+
+      // On other pages, redirect to products with query
       location.href = q ? `products.html?search=${encodeURIComponent(q)}` : "products.html";
     });
   });
 }
+
+
+
 
 /* -----------------------------
    Basket page rendering
