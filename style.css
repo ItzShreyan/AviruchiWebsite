@@ -533,15 +533,16 @@ footer{
   order: 2;
   flex: 0 0 100%;
   width: 100%;
-  justify-content: center;  /* center the buttons */
-  gap: 8px;
+  justify-content: center;
+  gap: 4px;              /* smaller space between buttons */
 }
 
 .nav-links a{
-  flex: 1 1 30%;            /* two buttons per row */
+  flex: 1 1 32%;         /* slightly wider, still ~3 per row */
   min-width: 0;
   text-align: center;
 }
+
 
 
   /* Row 3: search bar full width under the links */
