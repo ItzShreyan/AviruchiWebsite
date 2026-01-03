@@ -8,7 +8,6 @@
 
 const BASKET_KEY = "aviruchibasket";
 const CHECKOUT_GATE_KEY = "aviruchi_checkout_gate_v1";
-const DELIVERY_FEE = 3.99;
 
 const qs = (s, r = document) => r.querySelector(s);
 const qsa = (s, r = document) => [...r.querySelectorAll(s)];
@@ -72,8 +71,7 @@ function basketTotals() {
   const lines = basketLinesDetailed();
   const items = lines.reduce((s, l) => s + l.qty, 0);
   const subtotal = lines.reduce((s, l) => s + l.lineTotal, 0);
-  const delivery = lines.length ? DELIVERY_FEE : 0;
-  return { items, subtotal, delivery, total: subtotal + delivery };
+  return { items, subtotal, total: subtotal };
 }
 
 function changeLineQty(index, delta) {
@@ -130,18 +128,8 @@ function setupSearchRedirects() {
       const q = (i.value || "").trim();
       const isProductsPage = !!document.getElementById("products-grid");
 
-      // If we are already on products.html, filter instead of redirect
-      if (isProductsPage) {
-        const prodInput = document.getElementById("search-input");
-        if (prodInput) {
-          prodInput.value = q;
-          const ev = new Event("input", { bubbles: true });
-          prodInput.dispatchEvent(ev);
-        }
-        return;
-      }
-
-      // On other pages, redirect to products with query
+      // Always navigate to products page with the query to avoid timing/race issues
+      // (this reloads the page but guarantees the search param is handled consistently)
       location.href = q ? `products.html?search=${encodeURIComponent(q)}` : "products.html";
     });
   });
@@ -361,7 +349,6 @@ function setupRevealAnimations() {
   els.forEach((el) => obs.observe(el));
 }
 
-
 /* -----------------------------
    INIT
 ----------------------------- */
@@ -416,3 +403,82 @@ function setupInstagramCarousel(){
   updateButtons();
 }
 
+function setupRevealAnimations() {
+  const candidates = [
+    // Generic site pages
+    ...qsa("main"),
+    ...qsa("main .card"),
+    ...qsa("main .section-head"),
+    ...qsa("main .row section"),
+    ...qsa("main .row aside"),
+
+    // Reviews / Contact (if they use these classes)
+    ...qsa("main .review"),
+    ...qsa("main .contact-card"),
+
+    // Products page
+    ...qsa("#products-grid"),
+    ...qsa("main .product-card"),
+    ...qsa("main .products-hero"),
+    ...qsa("main .products-header-inner"),
+    ...qsa("main .results-bar"),
+  ];
+
+  const els = [...new Set(candidates)].filter(Boolean);
+  if (!els.length) return;
+
+  // apply hidden state
+  els.forEach((el) => el.classList.add("reveal", "indian-reveal"));
+
+  const show = (el) => el.classList.add("is-visible");
+
+  // show a couple instantly
+  requestAnimationFrame(() => els.slice(0, 2).forEach(show));
+
+  if (!("IntersectionObserver" in window)) {
+    els.forEach(show);
+    return;
+  }
+
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        show(entry.target);
+        obs.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  els.forEach((el) => obs.observe(el));
+
+  // dynamic inserts (products re-render, etc.)
+  const mainEl = document.querySelector("main");
+  if (!mainEl || !("MutationObserver" in window)) return;
+
+  const mo = new MutationObserver((mutations) => {
+    mutations.forEach((mut) => {
+      mut.addedNodes.forEach((node) => {
+        if (!(node instanceof Element)) return;
+
+        const targets = [];
+
+        if (node.matches?.(".product-card, .card, .section-head, .results-bar, .review, .contact-card")) {
+          targets.push(node);
+        }
+
+        node
+          .querySelectorAll?.(".product-card, .card, .section-head, .results-bar, .review, .contact-card")
+          .forEach((el) => targets.push(el));
+
+        targets.forEach((el) => {
+          el.classList.add("reveal", "indian-reveal");
+          obs.observe(el);
+        });
+      });
+    });
+  });
+
+  mo.observe(mainEl, { childList: true, subtree: true });
+}

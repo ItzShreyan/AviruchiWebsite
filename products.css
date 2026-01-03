@@ -781,6 +781,21 @@ p {
   transform: scale(0.92);
 }
 
+/* Remove button (shown when item is added) */
+.remove-btn{
+  border:1px solid rgba(0,0,0,0.08);
+  background:#fff;
+  color:#b71c1c;
+  padding:6px 8px;
+  border-radius:8px;
+  font-weight:900;
+  margin-left:8px;
+  cursor:pointer;
+  display:inline-block;
+}
+.remove-btn:hover{ background:rgba(183,28,28,0.06); }
+.action-buttons{ display:flex; align-items:center; gap:8px; }
+
 /* Active category */
 [data-category].active {
   background: #BF7B30;
