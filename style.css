@@ -738,3 +738,80 @@ h2 {
     border-radius: 12px;
   }
 }
+/* Contact section background */
+.contact-section {
+  background-color: #f5e9d7; /* beige */
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* White card */
+.contact-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  padding: 30px 30px 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Title */
+.contact-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 24px 0;
+}
+
+/* Rows */
+.contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+/* Icon wrapper */
+.contact-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG icons */
+.contact-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: #000; /* black icons */
+}
+
+/* Text */
+.contact-text h2 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 4px;
+}
+
+.contact-text p {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #333;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-card {
+    padding: 24px 18px;
+  }
+
+  .contact-title {
+    font-size: 1.6rem;
+  }
+}
