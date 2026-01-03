@@ -8,7 +8,6 @@
 
 const BASKET_KEY = "aviruchibasket";
 const CHECKOUT_GATE_KEY = "aviruchi_checkout_gate_v1";
-const DELIVERY_FEE = 3.99;
 
 const qs = (s, r = document) => r.querySelector(s);
 const qsa = (s, r = document) => [...r.querySelectorAll(s)];
@@ -72,8 +71,7 @@ function basketTotals() {
   const lines = basketLinesDetailed();
   const items = lines.reduce((s, l) => s + l.qty, 0);
   const subtotal = lines.reduce((s, l) => s + l.lineTotal, 0);
-  const delivery = lines.length ? DELIVERY_FEE : 0;
-  return { items, subtotal, delivery, total: subtotal + delivery };
+  return { items, subtotal, total: subtotal };
 }
 
 function changeLineQty(index, delta) {
