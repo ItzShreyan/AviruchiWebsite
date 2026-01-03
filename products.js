@@ -76,6 +76,8 @@ function renderProducts() {
 
   const list = state.filtered || [];
 
+  console.log('DEBUG: renderProducts — list length', list.length);
+
   if (!list.length) {
     grid.innerHTML = "";
     emptyState.hidden = false;
@@ -92,91 +94,101 @@ function renderProducts() {
       ? "Showing all categories"
       : `Category: ${state.category}`;
 
-  grid.innerHTML = list
-    .map((p) => {
-      const spiceClass = getSpiceClass(p.spice);
-      const spiceLabel = getSpiceLabel(p.spice);
-      const ratingStars =
-        "★".repeat(Math.round(p.rating)) +
-        "☆".repeat(5 - Math.round(p.rating));
+  try {
+    grid.innerHTML = list
+      .map((p) => {
+        const spiceClass = getSpiceClass(p.spice);
+        const spiceLabel = getSpiceLabel(p.spice);
+        const ratingStars =
+          "★".repeat(Math.round(p.rating)) +
+          "☆".repeat(5 - Math.round(p.rating));
 
-      const mainPack = p.packSizes?.[0] || null;
-      const unitPrice = mainPack ? mainPack.price : p.basePrice || 0;
-      const unitText = p.unit || (mainPack ? mainPack.label : "");
-      const categoryLabel = getCategoryLabel(p);
+        const mainPack = p.packSizes?.[0] || null;
+        const unitPrice = mainPack ? mainPack.price : p.basePrice || 0;
+        const unitText = p.unit || (mainPack ? mainPack.label : "");
+        const categoryLabel = getCategoryLabel(p);
 
-      const packSelectHtml = p.packSizes?.length
-        ? `
-          <select class="pack-select click-anim">
-            ${p.packSizes
-              .map(
-                (ps) =>
-                  `<option value="${ps.label}" data-price="${ps.price}">
-                    ${ps.label} - ${formatPrice(ps.price)}
-                  </option>`
-              )
-              .join("")}
-          </select>
-        `
-        : `<div class="pack-unavailable">Pre-order only</div>`;
+        const packSelectHtml = p.packSizes?.length
+          ? `
+            <select class="pack-select click-anim">
+              ${p.packSizes
+                .map(
+                  (ps) =>
+                    `<option value="${ps.label}" data-price="${ps.price}">
+                      ${ps.label} - ${formatPrice(ps.price)}
+                    </option>`
+                )
+                .join("")}
+            </select>
+          `
+          : `<div class="pack-unavailable">Pre-order only</div>`;
 
-      return `
-        <article class="product-card fade-in" data-id="${p.id}">
-               <div class="product-image-wrapper">
-      <img class="product-image"
-           src="${p.image || 'assets/placeholder.png'}"
-           alt="${p.name}"
-           loading="lazy"
-           onerror="this.onerror=null; this.src='assets/placeholder.png';">
-    </div>
+        return `
+          <article class="product-card fade-in" data-id="${p.id}">
+                 <div class="product-image-wrapper">
+        <img class="product-image"
+             src="${p.image || 'assets/placeholder.png'}"
+             alt="${p.name}"
+             loading="lazy"
+             onerror="this.onerror=null; this.src='assets/placeholder.png';">
+      </div>
 
-          <div class="product-body">
-            <div class="product-name">${p.name}</div>
-            <div class="product-category">${categoryLabel}</div>
+            <div class="product-body">
+              <div class="product-name">${p.name}</div>
+              <div class="product-category">${categoryLabel}</div>
 
-            <div class="product-meta-row">
-              <div class="product-spice">
-                <span class="spice-dot ${spiceClass}"></span>
-                <span>${spiceLabel}</span>
-              </div>
-              <div class="product-rating">
-                <span class="star">${ratingStars}</span>
-                <span>(${p.reviews})</span>
-              </div>
-            </div>
-
-            <div class="product-price-row">
-              <div class="price-main">
-                <span class="price-current">${formatPrice(unitPrice)}</span>
-              </div>
-              ${
-                unitText
-                  ? `<div class="price-unit">Based on ${unitText}</div>`
-                  : ""
-              }
-            </div>
-
-            <div class="product-controls">
-              ${packSelectHtml}
-
-              <div class="qty-row">
-                <span class="qty-label">Qty</span>
-                <div class="qty-box">
-                  <button class="qty-btn click-anim" data-change="-1">-</button>
-                  <span class="qty-value">1</span>
-                  <button class="qty-btn click-anim" data-change="1">+</button>
+              <div class="product-meta-row">
+                <div class="product-spice">
+                  <span class="spice-dot ${spiceClass}"></span>
+                  <span>${spiceLabel}</span>
+                </div>
+                <div class="product-rating">
+                  <span class="star">${ratingStars}</span>
+                  <span>(${p.reviews})</span>
                 </div>
               </div>
 
-              <button class="add-btn click-anim" data-id="${p.id}">Add</button>
-            </div>
+              <div class="product-price-row">
+                <div class="price-main">
+                  <span class="price-current">${formatPrice(unitPrice)}</span>
+                </div>
+                ${
+                  unitText
+                    ? `<div class="price-unit">Based on ${unitText}</div>`
+                    : ""
+                }
+              </div>
 
-            ${p.notes ? `<div class="product-notes">${p.notes}</div>` : ""}
-          </div>
-        </article>
-      `;
-    })
-    .join("");
+              <div class="product-controls">
+                ${packSelectHtml}
+
+                <div class="qty-row">
+                  <span class="qty-label">Qty</span>
+                  <div class="qty-box">
+                    <button class="qty-btn click-anim" data-change="-1">-</button>
+                    <span class="qty-value">1</span>
+                    <button class="qty-btn click-anim" data-change="1">+</button>
+                  </div>
+                </div>
+
+                <button class="add-btn click-anim" data-id="${p.id}">Add</button>
+              </div>
+
+              ${p.notes ? `<div class="product-notes">${p.notes}</div>` : ""}
+            </div>
+          </article>
+        `;
+      })
+      .join("");
+  } catch (err) {
+    console.error('ERROR rendering products:', err);
+    grid.innerHTML = '';
+    emptyState.hidden = false;
+    resultsCount.textContent = '0 products';
+    resultsContext.textContent = 'Rendering error';
+    return;
+  }
+
   syncAllAddButtons();
 } 
 
@@ -478,6 +490,7 @@ function attachFilterEvents() {
 
 document.addEventListener("DOMContentLoaded", () => {
   const isProductsPage = document.getElementById("products-grid");
+  console.log('DEBUG: product init', { PRODUCTS_length: (typeof PRODUCTS !== 'undefined') ? PRODUCTS.length : 'undefined', pickles: (window.pickles || []).length, snacks: (window.snacks || []).length, sweets: (window.sweets || []).length });
 
   if (isProductsPage) {
     // Load basket first
