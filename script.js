@@ -130,18 +130,8 @@ function setupSearchRedirects() {
       const q = (i.value || "").trim();
       const isProductsPage = !!document.getElementById("products-grid");
 
-      // If we are already on products.html, filter instead of redirect
-      if (isProductsPage) {
-        const prodInput = document.getElementById("search-input");
-        if (prodInput) {
-          prodInput.value = q;
-          const ev = new Event("input", { bubbles: true });
-          prodInput.dispatchEvent(ev);
-        }
-        return;
-      }
-
-      // On other pages, redirect to products with query
+      // Always navigate to products page with the query to avoid timing/race issues
+      // (this reloads the page but guarantees the search param is handled consistently)
       location.href = q ? `products.html?search=${encodeURIComponent(q)}` : "products.html";
     });
   });
