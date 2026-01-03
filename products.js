@@ -124,7 +124,7 @@ function renderProducts() {
           : `<div class="pack-unavailable">Pre-order only</div>`;
 
         return `
-          <article class="product-card fade-in" data-id="${p.id}">
+          <article class="product-card reveal indian-reveal" data-id="${p.id}">
                  <div class="product-image-wrapper">
         <img class="product-image"
              src="${p.image || 'assets/placeholder.png'}"
@@ -283,7 +283,7 @@ function updateBasketUI() {
       .map((item) => {
         const packLabel = item.pack ? ` (${item.pack.label})` : "";
         return `
-          <div class="basket-item fade-in">
+          <div class="basket-item reveal indian-reveal">
             <span>${item.name}${packLabel}</span>
             <span>Qty: ${item.qty}</span>
           </div>
