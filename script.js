@@ -407,12 +407,16 @@ function setupInstagramCarousel(){
 
 function setupRevealAnimations() {
   const candidates = [
+    // Generic site pages
     ...qsa("main"),
     ...qsa("main .card"),
     ...qsa("main .section-head"),
-    ...qsa("main .picks-grid article"),
     ...qsa("main .row section"),
     ...qsa("main .row aside"),
+
+    // Reviews / Contact (if they use these classes)
+    ...qsa("main .review"),
+    ...qsa("main .contact-card"),
 
     // Products page
     ...qsa("#products-grid"),
@@ -420,20 +424,17 @@ function setupRevealAnimations() {
     ...qsa("main .products-hero"),
     ...qsa("main .products-header-inner"),
     ...qsa("main .results-bar"),
-
-    // Contact / Reviews
-    ...qsa("main .contact-card"),
-    ...qsa("main .review"),
   ];
 
   const els = [...new Set(candidates)].filter(Boolean);
   if (!els.length) return;
 
+  // apply hidden state
   els.forEach((el) => el.classList.add("reveal", "indian-reveal"));
 
   const show = (el) => el.classList.add("is-visible");
 
-  // Reveal a couple immediately
+  // show a couple instantly
   requestAnimationFrame(() => els.slice(0, 2).forEach(show));
 
   if (!("IntersectionObserver" in window)) {
@@ -454,7 +455,7 @@ function setupRevealAnimations() {
 
   els.forEach((el) => obs.observe(el));
 
-  // Watch for dynamic inserts (Products grid re-renders)
+  // dynamic inserts (products re-render, etc.)
   const mainEl = document.querySelector("main");
   if (!mainEl || !("MutationObserver" in window)) return;
 
@@ -465,18 +466,12 @@ function setupRevealAnimations() {
 
         const targets = [];
 
-        if (
-          node.matches?.(
-            ".product-card, .card, .section-head, .results-bar, .review, .contact-card"
-          )
-        ) {
+        if (node.matches?.(".product-card, .card, .section-head, .results-bar, .review, .contact-card")) {
           targets.push(node);
         }
 
         node
-          .querySelectorAll?.(
-            ".product-card, .card, .section-head, .results-bar, .review, .contact-card"
-          )
+          .querySelectorAll?.(".product-card, .card, .section-head, .results-bar, .review, .contact-card")
           .forEach((el) => targets.push(el));
 
         targets.forEach((el) => {
