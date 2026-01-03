@@ -54,7 +54,8 @@ main{ padding:28px 0 56px; }
   position:sticky;
   top:0;
   z-index:1000;
-  background:rgba(255,255,255,0.86);
+  background: radial-gradient(1200px 600px at 20% 20%, rgba(235, 177, 119, 0.778), transparent 55%), 
+              linear-gradient(135deg, rgba(181, 129, 74, 0.45), rgba(183, 28, 28, 0.18));
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   border-bottom:1px solid var(--line);

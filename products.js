@@ -122,6 +122,14 @@ function renderProducts() {
 
       return `
         <article class="product-card fade-in" data-id="${p.id}">
+               <div class="product-image-wrapper">
+      <img class="product-image"
+           src="${p.image || 'assets/placeholder.png'}"
+           alt="${p.name}"
+           loading="lazy"
+           onerror="this.onerror=null; this.src='assets/placeholder.png';">
+    </div>
+
           <div class="product-body">
             <div class="product-name">${p.name}</div>
             <div class="product-category">${categoryLabel}</div>
