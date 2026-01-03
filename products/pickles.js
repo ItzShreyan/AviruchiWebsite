@@ -3,8 +3,8 @@ window.pickles = [
     id: "pickles_avakaya",
     name: "Avakaya",
     category: "Pickles",
-    image: "assets/Avakaya Pickle(Seasonal).jpg"
     subCategory: "Veg",
+    image: "assets/Avakaya Pickle(Seasonal).jpg"
     spice: "hot",
     rating: 4.8,
     reviews: 120,
