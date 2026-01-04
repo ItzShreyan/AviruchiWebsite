@@ -1,7 +1,7 @@
 # Aviruchi Website
 Aviruchi Website Project
 
-Start Date: 28/12/25
+Start Date: 29/12/25
 
 Status: Currently in Development
 
