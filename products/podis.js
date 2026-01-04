@@ -68,6 +68,7 @@ window.podis = [
     name: "Idly Spice Mix Powder",
     category: "Podis",
     subCategory: "Veg",
+    imageLink: "assets/Idli-Milagai-Podi-1.jpg",
     spice: "medium",
     rating: 4.6,
     reviews: 41,
