@@ -369,6 +369,7 @@ window.sweets = [
     name: "Kaju Katli",
     category: "Sweets",
     subCategory: "Veg",
+    Image: "assets/Kaju Katli.jpg",
     spice: "mild",
     notes: `<span class="preorder-badge">Pre-order required</span>`,
     rating: 4.9,

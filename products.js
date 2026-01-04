@@ -124,7 +124,7 @@ function renderProducts() {
           : `<div class="pack-unavailable">Pre-order only</div>`;
 
         return `
-          <article class="product-card fade-in" data-id="${p.id}">
+          <article class="product-card reveal indian-reveal" data-id="${p.id}">
                  <div class="product-image-wrapper">
         <img class="product-image"
              src="${p.image || 'assets/placeholder.png'}"
@@ -171,7 +171,10 @@ function renderProducts() {
                   </div>
                 </div>
 
-                <button class="add-btn click-anim" data-id="${p.id}">Add</button>
+                <div class="action-buttons">
+                  <button class="add-btn click-anim" data-id="${p.id}">Add</button>
+                  <button class="remove-btn click-anim" data-id="${p.id}" style="display:none" title="Remove">🗑️</button>
+                </div>
               </div>
 
               ${p.notes ? `<div class="product-notes">${p.notes}</div>` : ""}
@@ -216,10 +219,21 @@ function isInBasket(productId, selectedPack) {
   return state.basket.some((item) => item.key === key);
 }
 
+
+function syncAllAddButtons() {
+  const grid = document.getElementById("products-grid");
+  if (!grid) return;
+  grid.querySelectorAll(".product-card").forEach(syncCardAddButton);
+
+  // Also ensure header cart badge is up to date on initial render
+  if (typeof updateBasketBadges === 'function') updateBasketBadges();
+}
+
 function syncCardAddButton(card) {
   if (!card) return;
   const id = card.getAttribute("data-id");
   const addBtn = card.querySelector(".add-btn");
+  const remBtn = card.querySelector(".remove-btn");
   if (!addBtn) return;
 
   const select = card.querySelector(".pack-select");
@@ -230,15 +244,12 @@ function syncCardAddButton(card) {
     selectedPack = { label: opt.value, price: parseFloat(opt.getAttribute("data-price")) };
   }
 
-  const added = isInBasket(id, selectedPack);
+  // Consider item as added if any basket line exists for this product id
+  const added = state.basket.some((item) => item.id === id);
   addBtn.textContent = added ? "Added" : "Add";
   addBtn.classList.toggle("added", added);
-}
 
-function syncAllAddButtons() {
-  const grid = document.getElementById("products-grid");
-  if (!grid) return;
-  grid.querySelectorAll(".product-card").forEach(syncCardAddButton);
+  if (remBtn) remBtn.style.display = added ? 'inline-block' : 'none';
 }
 
 function addToBasket(product, qty, selectedPack) {
@@ -261,6 +272,17 @@ function addToBasket(product, qty, selectedPack) {
 
   saveBasket();
   updateBasketUI();
+  // Update header/cart badges in real-time if available
+  if (typeof updateBasketBadges === 'function') updateBasketBadges();
+}
+
+// Remove all basket lines for a product id (simpler UX). If you want
+// pack-specific removal instead, we can refine this.
+function removeFromBasketByProductId(productId) {
+  state.basket = state.basket.filter((item) => item.id !== productId);
+  saveBasket();
+  updateBasketUI();
+  if (typeof updateBasketBadges === 'function') updateBasketBadges();
 }
 
 function updateBasketUI() {
@@ -283,7 +305,7 @@ function updateBasketUI() {
       .map((item) => {
         const packLabel = item.pack ? ` (${item.pack.label})` : "";
         return `
-          <div class="basket-item fade-in">
+          <div class="basket-item reveal indian-reveal">
             <span>${item.name}${packLabel}</span>
             <span>Qty: ${item.qty}</span>
           </div>
@@ -379,7 +401,7 @@ function attachProductEvents() {
     }
 
     const addBtn = e.target.closest(".add-btn");
-    if (addBtn) {
+      if (addBtn) {
       addBtn.classList.add("clicked");
       setTimeout(() => addBtn.classList.remove("clicked"), 150);
 
@@ -406,6 +428,26 @@ function attachProductEvents() {
 
       addBtn.textContent = "Added";
       addBtn.classList.add("added");
+
+      // Show remove button when item added
+      const rem = card.querySelector('.remove-btn');
+      if (rem) rem.style.display = 'inline-block';
+    }
+
+    const remBtn = e.target.closest('.remove-btn');
+    if (remBtn) {
+      remBtn.classList.add('clicked');
+      setTimeout(() => remBtn.classList.remove('clicked'), 150);
+
+      const card = remBtn.closest('.product-card');
+      const id = card.getAttribute('data-id');
+      // Remove all items for this product id
+      removeFromBasketByProductId(id);
+      syncCardAddButton(card);
+
+      // Hide remove button after removal
+      const rem = card.querySelector('.remove-btn');
+      if (rem) rem.style.display = 'none';
     }
   });
   
